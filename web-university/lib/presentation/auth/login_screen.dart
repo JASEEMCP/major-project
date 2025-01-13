@@ -1,8 +1,14 @@
+import 'package:app/domain/auth/token.dart';
+import 'package:app/domain/common_state.dart';
+import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/widget/custom_elevated_button.dart';
 import 'package:app/presentation/widget/custom_text_field.dart';
+import 'package:app/resource/api/end_points.dart';
 import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
+import 'package:dio/dio.dart';
 
+// ignore: must_be_immutable
 class ScreenLogin extends StatelessWidget {
   ScreenLogin({super.key});
 
@@ -11,6 +17,29 @@ class ScreenLogin extends StatelessWidget {
     2,
     (_) => generateTextController(),
   );
+  ApiState apiState = InitialState();
+  _login() async {
+    apiState = LoadingState();
+
+    try {
+      final response = await Dio().post(
+        "${Env().apiBaseUrl}${EndPoints.login}",
+        data: {
+          'email': _textController[0].text.trim(),
+          'password': _textController[1].text.trim(),
+        },
+      );
+      if (response.statusCode == 200) {
+        apiState = SuccessState();
+        pref.token.value = Token.fromJson(response.data);
+        appRouter.go(ScreenPath.explore);
+      } else {
+        apiState = ErrorState();
+      }
+    } catch (e) {
+      apiState = ErrorState();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +103,9 @@ class ScreenLogin extends StatelessWidget {
                 CustomButton(
                   name: 'Login',
                   onTap: () {
-                    //if (_formKey.currentState!.validate()) {
-                    context.go(ScreenPath.explore);
-                    //}
+                    if (_formKey.currentState!.validate()) {
+                      _login();
+                    }
                   },
                 ),
                 Gap(inset.lg),

@@ -10,6 +10,9 @@ class PrefInfo with LoadAndSaveMixin {
     Token(
       accessToken: null,
       refreshToken: null,
+      isProfileCreated: false,
+      name: null,
+      userType: null,
       
     ),
   )..addListener(save);
@@ -18,6 +21,9 @@ class PrefInfo with LoadAndSaveMixin {
   void copyFromJson(Map<String, dynamic> data) {
     token.value.accessToken = data['access_token'] ?? '';
     token.value.refreshToken = data['refresh_token'] ?? '';
+    token.value.isProfileCreated = data['is_profile_create'] ?? false;
+    token.value.name = data['name'] ?? '';
+    token.value.userType = data['user_type'] ?? '';
    
   }
 
@@ -29,6 +35,9 @@ class PrefInfo with LoadAndSaveMixin {
     return {
       'access_token': token.value.accessToken,
       'refresh_token': token.value.refreshToken,
+      'name': token.value.name,
+      'user_type': token.value.userType,
+      'is_profile_created': token.value.isProfileCreated,
       
     };
   }

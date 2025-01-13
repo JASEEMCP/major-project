@@ -36,13 +36,13 @@ class CustomDrawer extends StatelessWidget {
 
                         /// Menu
                         Text(
-                          'University Name'.toTitleCase(),
+                          pref.token.value.userType ?? 'N/A',
                           style: $style.text.textBold16.copyWith(
                             color: context.theme.kBlack,
                           ),
                         ),
                         Text(
-                          'Email'.toTitleCase(),
+                          pref.token.value.name ?? 'N/A',
                           style: $style.text.textBold12.copyWith(
                             color: context.theme.kBlack.withOpacity(0.5),
                           ),
