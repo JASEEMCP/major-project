@@ -6,12 +6,14 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.hint,
     this.width,
-    this.validator, this.controller,
+    this.validator, this.controller, this.isObscure, this.suffix,
   });
   final String hint;
   final String? Function(String?)? validator;
   final double? width;
   final TextEditingController? controller;
+  final bool? isObscure;
+  final Widget? suffix;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,10 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         validator: validator,
+        obscureText: isObscure ?? false,
         style: $style.text.textSBold12,
         decoration: InputDecoration(
+          suffixIcon: suffix,
           hintText: hint,
           filled: true,
           hintStyle: $style.text.textSBold12,

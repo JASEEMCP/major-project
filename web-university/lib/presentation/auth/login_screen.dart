@@ -41,6 +41,8 @@ class ScreenLogin extends StatelessWidget {
     }
   }
 
+  final ValueNotifier<bool> _visibilityNotifier = ValueNotifier(true);
+
   @override
   Widget build(BuildContext context) {
     final inset = $style.insets;
@@ -80,16 +82,30 @@ class ScreenLogin extends StatelessWidget {
                   controller: _textController[0],
                 ),
                 Gap(inset.sm),
-                CustomTextField(
-                  hint: 'Password',
-                  controller: _textController[1],
-                  validator: (email) {
-                    if (_textController.isItemEmpty(0)) {
-                      return "* Required";
-                    }
-
-                    return null;
-                  },
+                ValueListenableBuilder(
+                    valueListenable: _visibilityNotifier,
+                    builder: (context, isVisible, _) {
+                      return CustomTextField(
+                      hint: 'Password',
+                      isObscure: isVisible,
+                        suffix: IconButton(
+                          icon: Icon(
+                            isVisible ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            _visibilityNotifier.value = !isVisible;
+                          },
+                        ),
+                      controller: _textController[1],
+                      validator: (email) {
+                        if (_textController.isItemEmpty(0)) {
+                          return "* Required";
+                        }
+                    
+                        return null;
+                      },
+                    );
+                  }
                 ),
                 Gap(inset.xs),
                 Align(
