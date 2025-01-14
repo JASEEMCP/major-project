@@ -67,14 +67,14 @@ class ScreenLogin extends StatelessWidget {
                 Align(
                   alignment: const Alignment(-0.9, 0),
                   child: Text(
-                    'Login\nStudent Profile',
+                    'Login\nTutor Profile',
                     textAlign: TextAlign.left,
                     style: $style.text.textEB26.copyWith(),
                   ),
                 ),
                 Gap(inset.xs),
                 CustomTextField(
-                  hint: 'Student email',
+                  hint: 'Tutor email',
                   validator: (email) {
                     if (_textController.isItemEmpty(0)) {
                       return "* Required";
@@ -129,12 +129,6 @@ class ScreenLogin extends StatelessWidget {
                   },
                 ),
                 Gap(inset.lg),
-                Center(
-                  child: CustomTextButton(
-                    text: 'Create Account?',
-                    onTap: () {},
-                  ),
-                ),
               ],
             ),
           ),

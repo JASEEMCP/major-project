@@ -10,7 +10,7 @@ class DesktopLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Student'),
+        title: const Text('Tutor'),
       ),
       backgroundColor: context.theme.indigoLight,
       body: child,
@@ -25,15 +25,15 @@ class DesktopLayout extends StatelessWidget {
               },
               items: const [
                 BottomNavigationBarItem(
-                  label: 'Event',
+                  label: 'Verification',
                   icon: Icon(
-                    Icons.event,
+                    Icons.verified_outlined,
                   ),
                 ),
                 BottomNavigationBarItem(
-                  label: 'History',
+                  label: 'Confirmation',
                   icon: Icon(
-                    Icons.history,
+                    Icons.check_box_outlined,
                   ),
                 ),
                 BottomNavigationBarItem(

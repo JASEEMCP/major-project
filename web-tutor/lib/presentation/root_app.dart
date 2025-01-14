@@ -26,7 +26,7 @@ class RootApp extends StatelessWidget {
         builder: (context, state) {
            _style = AppStyle(screenSize: context.mq);
           return MaterialApp.router(
-            title: 'Student',
+            title: 'Tutor',
             debugShowCheckedModeBanner: Env.kDebugMode,
             theme: AppTheme.fromType(ThemeType.light).themeData,
             routerConfig: AppRouter.router,
