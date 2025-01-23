@@ -5,9 +5,13 @@ class ScreenPath {
   static const splash = '/';
   static const login = '/login';
 
-
-
+  /// Main routes
   static const explore = '/explore';
+  static const validation = '/validation';
+  static const profile = '/profile';
+
+  /// Sub -routes
+  static detail(String id) => _appendIdIntoCurrentPath('/detail/$id');
 
   ///Appending path
   static _appendIdIntoCurrentPath(String path) {

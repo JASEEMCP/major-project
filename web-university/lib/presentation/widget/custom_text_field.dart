@@ -6,7 +6,10 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.hint,
     this.width,
-    this.validator, this.controller, this.isObscure, this.suffix,
+    this.validator,
+    this.controller,
+    this.isObscure,
+    this.suffix,
   });
   final String hint;
   final String? Function(String?)? validator;
@@ -27,6 +30,7 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           suffixIcon: suffix,
           hintText: hint,
+          isDense: true,
           filled: true,
           hintStyle: $style.text.textSBold12,
           fillColor: context.theme.kWhite,

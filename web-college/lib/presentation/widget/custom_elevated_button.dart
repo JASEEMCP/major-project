@@ -22,10 +22,12 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? 280,
+      height: 35,
       child: CupertinoButton(
-        
         color: color ?? context.theme.indigo,
         onPressed: onTap,
+        borderRadius: BorderRadius.circular(30),
+        padding: EdgeInsets.zero,
         child: Text(
           name,
           style: $style.text.textN14.copyWith(
