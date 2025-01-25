@@ -1,3 +1,8 @@
+import 'package:app/presentation/event/host_event_view.dart';
+import 'package:app/presentation/event/view/create_event_view.dart';
+import 'package:app/presentation/event/view/event_detail_view.dart';
+import 'package:app/presentation/explore/screen/college_detail.dart';
+import 'package:app/presentation/profile/profile_view.dart';
 import 'package:app/router/auth_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -47,9 +52,51 @@ class AppRouter {
             parentNavigatorKey: _shellNavigatorKey,
             pageBuilder: (context, state) {
               return const CustomTransitionPage(
-                child: Center(
-                  child: Text('Dashboard'),
-                ),
+                child: CollegeDetailView(),
+                transitionsBuilder: useNavChangeTransition,
+              );
+            },
+          ),
+          
+          GoRoute(
+            path: ScreenPath.hostEvent,
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (context, state) {
+              return const CustomTransitionPage(
+                child: HostEventView(),
+                transitionsBuilder: useNavChangeTransition,
+              );
+            },
+            routes: [
+              GoRoute(
+                path: 'detail/:id',
+                parentNavigatorKey: _shellNavigatorKey,
+                pageBuilder: (context, state) {
+                  return const CustomTransitionPage(
+                    child: EventDetailView(),
+                    transitionsBuilder: useNavChangeTransition,
+                  );
+                },
+              ),
+              GoRoute(
+                path: 'create',
+                parentNavigatorKey: _shellNavigatorKey,
+                pageBuilder: (context, state) {
+                  return const CustomTransitionPage(
+                    child: CreateEventView(),
+                    transitionsBuilder: useNavChangeTransition,
+                  );
+                },
+              ),
+            ],
+          ),
+
+          GoRoute(
+            path: ScreenPath.profile,
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (context, state) {
+              return const CustomTransitionPage(
+                child: ProfileView(),
                 transitionsBuilder: useNavChangeTransition,
               );
             },
