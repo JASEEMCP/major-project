@@ -54,6 +54,7 @@ class CustomDrawer extends StatelessWidget {
                           icon: Icons.explore_outlined,
                           onTap: () {
                             tabChangeNotifier.value = 0;
+                            context.go(ScreenPath.explore);
                           },
                         ),
                         const Gap(5),
@@ -63,6 +64,7 @@ class CustomDrawer extends StatelessWidget {
                           icon: Icons.book,
                           onTap: () {
                             tabChangeNotifier.value = 1;
+                            context.go(ScreenPath.history);
                           },
                         ),
                         const Gap(5),

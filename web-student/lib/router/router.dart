@@ -1,3 +1,8 @@
+
+
+import 'package:app/presentation/home/home_view.dart';
+import 'package:app/presentation/home/my_event_view.dart';
+import 'package:app/presentation/home/profile_view.dart';
 import 'package:app/router/auth_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -47,14 +52,35 @@ class AppRouter {
             parentNavigatorKey: _shellNavigatorKey,
             pageBuilder: (context, state) {
               return const CustomTransitionPage(
-                child: Center(
-                  child: Text('User'),
-                ),
+                child: HomeView(),
                 transitionsBuilder: useNavChangeTransition,
               );
             },
           ),
 
+          GoRoute(
+            path: ScreenPath.history,
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (context, state) {
+              return const CustomTransitionPage(
+                child: MyEventView(),
+                transitionsBuilder: useNavChangeTransition,
+              );
+            },
+          ),
+
+          GoRoute(
+            path: ScreenPath.profile,
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (context, state) {
+              return const CustomTransitionPage(
+                child: ProfileView(),
+                transitionsBuilder: useNavChangeTransition,
+              );
+            },
+          ),
+          
+         
           /// Profile
         ],
       ),

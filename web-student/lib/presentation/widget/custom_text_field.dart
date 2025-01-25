@@ -30,8 +30,11 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           suffixIcon: suffix,
           hintText: hint,
+          isDense: true,
           filled: true,
-          hintStyle: $style.text.textSBold12,
+          hintStyle: $style.text.textN12.copyWith(
+            color: context.theme.kBlack.withValues(alpha: 0.5),
+          ),
           fillColor: context.theme.kWhite,
           border: _applyBorderStyle(),
           enabledBorder: _applyBorderStyle(),
