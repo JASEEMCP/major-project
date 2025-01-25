@@ -1,4 +1,4 @@
-
+import 'package:app/presentation/widget/custom_circle_btn.dart';
 import 'package:app/presentation/widget/custom_elevated_button.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/common_lib.dart';
@@ -15,9 +15,21 @@ class HostEventView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomText(
-            txt: 'Colleges',
-            fontSize: 20,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const CustomText(
+                txt: 'My Events',
+                fontSize: 20,
+              ),
+              CustomCircleBtn(
+                iconColor: Colors.green,
+                icon: Icons.add,
+                onTap: () {
+                  context.go(ScreenPath.createEvent());
+                },
+              )
+            ],
           ),
           Gap(inset.sm),
           Container(
@@ -34,12 +46,24 @@ class HostEventView extends StatelessWidget {
                   separatorBuilder: (context, index) => Gap(inset.xs),
                   itemBuilder: (ctx, index) {
                     return Container(
-                      padding: EdgeInsets.all(inset.xs),
+                      padding: EdgeInsets.all(inset.sm),
                       decoration: applyBorderRadius(context),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const CustomText(txt: 'College Name'),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText(
+                                txt: 'Event Name',
+                                color: context.theme.indigo,
+                              ),
+                              rowTitleText('Category', "content")
+                            ],
+                          ),
+                          rowTitleText('Date', "2022-11-24"),
+                          rowTitleText('Fee', "\$300"),
+                          rowTitleText('Credit', "50"),
                           CustomButton(
                             width: 80,
                             name: 'View',
@@ -60,12 +84,11 @@ class HostEventView extends StatelessWidget {
       ),
     );
   }
-
-  
 }
+
 BoxDecoration applyBorderRadius(BuildContext context) {
-    return BoxDecoration(
-      color: context.theme.kWhite,
-      borderRadius: BorderRadius.circular(10),
-    );
-  }
+  return BoxDecoration(
+    color: context.theme.kWhite,
+    borderRadius: BorderRadius.circular(10),
+  );
+}

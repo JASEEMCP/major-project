@@ -16,6 +16,7 @@ class ScreenPath {
   /// Sub-Routes
   
   static  detail(String id) => _appendIdIntoCurrentPath('/detail/$id');
+  static  createEvent() => _appendIdIntoCurrentPath('/create');
 
 
 

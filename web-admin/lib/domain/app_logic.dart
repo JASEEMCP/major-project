@@ -23,7 +23,7 @@ class AppLogic {
       // } else {
       //   appRouter.go(ScreenPath.login);
       // }
-      //appRouter.go(ScreenPath.explore);
+      // appRouter.go(ScreenPath.explore);
     } catch (e) {
       //appRouter.go(ScreenPath.login);
     }

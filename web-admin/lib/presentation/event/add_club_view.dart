@@ -42,7 +42,10 @@ class AddClubView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             spacing: inset.xs,
                             children: [
-                              const CustomText(txt: 'Club Name'),
+                              CustomText(
+                                txt: 'Club Name',
+                                color: context.theme.indigo,
+                              ),
                               rowTitleText('Authorizer', 'Name')
                             ],
                           ),
@@ -54,7 +57,7 @@ class AddClubView extends StatelessWidget {
                             radius: 30,
                             color: Colors.green,
                             onTap: () {
-                              context.go(ScreenPath.detail('id-college'));
+                              
                             },
                           )
                         ],

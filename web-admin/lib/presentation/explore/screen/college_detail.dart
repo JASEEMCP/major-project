@@ -18,84 +18,30 @@ class CollegeDetailView extends StatelessWidget {
           children: [
             const Row(
               children: [
-                 CustomText(
-                  txt: 'College Name',
+                CustomText(
+                  txt: 'Info',
                   fontSize: 20,
                 ),
               ],
             ),
             Gap(inset.sm),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                rowTitleText('Name', 'Content Name'),
-                rowTitleText('Name', 'Content Name'),
-                rowTitleText('Name', 'Content Name'),
+                rowTitleText('Admin Name', 'Content Name'),
                 Gap(inset.sm),
                 const BuildEventHistory(),
-                Gap(inset.sm),
-                ListView.separated(
-                    separatorBuilder: (context, index) => Gap(inset.xs),
-                    shrinkWrap: true,
-                    itemCount: 3,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (ctx, index) {
-                      return Container(
-                        padding: EdgeInsets.all(inset.sm),
-                        color: context.theme.indigoLight,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(Icons.book_outlined),
-                                const CustomText(
-                                  txt: 'Computer Science',
-                                  color: Colors.green,
-                                ),
-                                const Spacer(),
-                                rowTitleText('Date of Event', '01/11/2001'),
-                              ],
-                            ),
-                            Gap(inset.xs),
-                            rowTitleText('Short-Name', 'CSE'),
-                            rowTitleText('Strength', '100'),
-                            Gap(inset.xs),
-                            ListView.separated(
-                              separatorBuilder: (context, index) =>
-                                  Gap(inset.xs),
-                              shrinkWrap: true,
-                              itemCount: 3,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (ctx, index) {
-                                return Container(
-                                  padding: EdgeInsets.all(inset.sm),
-                                  decoration: applyBorderRadius(context),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      rowTitleText('Student Name', 'Rahul'),
-                                      rowTitleText(
-                                          'Academic  Year', '2021-2025'),
-                                      rowTitleText('Credit Earned', '40'),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
                 Gap(inset.sm),
                 Container(
                   padding: EdgeInsets.all(inset.sm),
                   color: context.theme.indigoLight,
                   child: Column(
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Icon(Icons.add_box),
-                          CustomText(
+                          const Icon(Icons.add_box),
+                          Gap(inset.xs),
+                          const CustomText(
                             txt: 'Clubs',
                             color: Colors.green,
                           ),
@@ -159,16 +105,42 @@ class BuildEventHistory extends StatelessWidget {
                 children: [
                   const Icon(Icons.calendar_month),
                   const CustomText(
-                    txt: 'Title',
+                    txt: 'UI/UX Workshop',
                   ),
+                  Gap(inset.xs),
                   const Spacer(),
                   rowTitleText('Date of Event', '01/11/2001'),
                 ],
               ),
               Gap(inset.xs),
-              rowTitleText('Name', 'Content Name'),
-              rowTitleText('Name', 'Content Name'),
-              rowTitleText('Name', 'Content Name'),
+              rowTitleText('Fee', 'Content Name'),
+              rowTitleText('Attended Count', 'Content Name'),
+              rowTitleText('Category Name', 'Content Name'),
+              rowTitleText('Credit Score', 'Content Name'),
+              rowTitleText('Faculty Name', 'Content Name'),
+              rowTitleText('Author', 'Author Name'),
+              Gap(inset.sm),
+              ListView.separated(
+                itemCount: 5,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) => Gap(inset.xs),
+                itemBuilder: (ctx, index) {
+                  return Container(
+                    padding: EdgeInsets.all(inset.sm),
+                    decoration: applyBorderRadius(context),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        rowTitleText('Student Name', 'Name'),
+                        rowTitleText('Academic Year', 'Name'),
+                        rowTitleText('Branch', 'CSE'),
+                        rowTitleText('Credit Earned', '50'),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         );

@@ -52,7 +52,7 @@ class EventVerifyView extends StatelessWidget {
                                 color: Colors.green,
                                 radius: 30,
                                 onTap: () {
-                                  context.go(ScreenPath.detail('id-college'));
+                                  
                                 },
                               )
                             ],

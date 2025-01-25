@@ -1,7 +1,8 @@
 import 'package:app/presentation/event/event_view.dart';
 import 'package:app/presentation/event/add_club_view.dart';
 import 'package:app/presentation/event/host_event_view.dart';
-import 'package:app/presentation/explore/explore_view.dart';
+import 'package:app/presentation/event/view/create_event_view.dart';
+import 'package:app/presentation/event/view/event_detail_view.dart';
 import 'package:app/presentation/explore/screen/college_detail.dart';
 import 'package:app/presentation/profile/profile_view.dart';
 import 'package:app/router/auth_shell.dart';
@@ -88,8 +89,29 @@ class AppRouter {
                 transitionsBuilder: useNavChangeTransition,
               );
             },
+            routes: [
+              GoRoute(
+                path: 'detail/:id',
+                parentNavigatorKey: _shellNavigatorKey,
+                pageBuilder: (context, state) {
+                  return const CustomTransitionPage(
+                    child: EventDetailView(),
+                    transitionsBuilder: useNavChangeTransition,
+                  );
+                },
+              ),
+              GoRoute(
+                path: 'create',
+                parentNavigatorKey: _shellNavigatorKey,
+                pageBuilder: (context, state) {
+                  return const CustomTransitionPage(
+                    child: CreateEventView(),
+                    transitionsBuilder: useNavChangeTransition,
+                  );
+                },
+              ),
+            ],
           ),
-        
 
           GoRoute(
             path: ScreenPath.profile,
