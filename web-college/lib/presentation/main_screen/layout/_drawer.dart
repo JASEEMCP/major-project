@@ -11,7 +11,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: 200,
+      width: 230,
       backgroundColor: context.theme.kWhite,
       surfaceTintColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
@@ -54,6 +54,7 @@ class CustomDrawer extends StatelessWidget {
                           icon: Icons.explore_outlined,
                           onTap: () {
                             tabChangeNotifier.value = 0;
+                            context.go(ScreenPath.explore);
                           },
                         ),
                         const Gap(5),
@@ -63,6 +64,7 @@ class CustomDrawer extends StatelessWidget {
                           icon: Icons.book,
                           onTap: () {
                             tabChangeNotifier.value = 1;
+                            context.go(ScreenPath.staff);
                           },
                         ),
                         const Gap(5),
@@ -72,6 +74,7 @@ class CustomDrawer extends StatelessWidget {
                           icon: Icons.verified_outlined,
                           onTap: () {
                             tabChangeNotifier.value = 2;
+                            context.go(ScreenPath.department);
                           },
                         ),
 
@@ -82,6 +85,7 @@ class CustomDrawer extends StatelessWidget {
                           icon: Icons.account_circle_outlined,
                           onTap: () {
                             tabChangeNotifier.value = 3;
+                            context.go(ScreenPath.profile);
                           },
                         ),
                       ],

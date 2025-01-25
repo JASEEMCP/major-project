@@ -1,3 +1,7 @@
+import 'package:app/presentation/explore/add_department_view.dart';
+import 'package:app/presentation/explore/add_staff_view.dart';
+import 'package:app/presentation/explore/screen/college_detail.dart';
+import 'package:app/presentation/profile/profile_view.dart';
 import 'package:app/router/auth_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -47,9 +51,39 @@ class AppRouter {
             parentNavigatorKey: _shellNavigatorKey,
             pageBuilder: (context, state) {
               return const CustomTransitionPage(
-                child: Center(
-                  child: Text('Dashboard'),
-                ),
+                child: CollegeDetailView(),
+                transitionsBuilder: useNavChangeTransition,
+              );
+            },
+          ),
+          GoRoute(
+            path: ScreenPath.staff,
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (context, state) {
+              return const CustomTransitionPage(
+                child: AddStaffView(),
+                transitionsBuilder: useNavChangeTransition,
+              );
+            },
+          ),
+
+          GoRoute(
+            path: ScreenPath.department,
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (context, state) {
+              return const CustomTransitionPage(
+                child: AddDepartmentView(),
+                transitionsBuilder: useNavChangeTransition,
+              );
+            },
+          ),
+
+          GoRoute(
+            path: ScreenPath.profile,
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (context, state) {
+              return const CustomTransitionPage(
+                child: ProfileView(),
                 transitionsBuilder: useNavChangeTransition,
               );
             },

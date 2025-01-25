@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
     required this.onTap,
     this.width,
     this.color,
-    this.textColor,
+    this.textColor, this.radius,
   });
 
   final String name;
@@ -17,17 +17,17 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final Color? color;
   final Color? textColor;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? 280,
-      height: 35,
       child: CupertinoButton(
+        padding: EdgeInsets.zero,
         color: color ?? context.theme.indigo,
         onPressed: onTap,
-        borderRadius: BorderRadius.circular(30),
-        padding: EdgeInsets.zero,
+        borderRadius: BorderRadius.circular(radius??8),
         child: Text(
           name,
           style: $style.text.textN14.copyWith(
