@@ -70,11 +70,11 @@ class CustomDrawer extends StatelessWidget {
 
                         const Gap(5),
                         TileWidget(
-                          isSelected: index == 5,
+                          isSelected: index == 2,
                           tileName: 'Profile',
                           icon: Icons.account_circle_outlined,
                           onTap: () {
-                            tabChangeNotifier.value = 5;
+                            tabChangeNotifier.value = 2;
                             context.go(ScreenPath.profile);
                           },
                         ),

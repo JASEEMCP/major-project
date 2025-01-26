@@ -32,6 +32,7 @@ class CustomTextField extends StatelessWidget {
           hintText: hint,
           isDense: true,
           filled: true,
+          errorMaxLines: 4,
           hintStyle: $style.text.textSBold12,
           fillColor: context.theme.kWhite,
           border: _applyBorderStyle(),

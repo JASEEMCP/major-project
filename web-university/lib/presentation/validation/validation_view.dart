@@ -40,7 +40,6 @@ class _CollegeValidationState extends State<CollegeValidation> {
 
   Future _refresh() async {
     try {
-      
       final response = await dioClient.dio
           .get('${Env().apiBaseUrl}/home/university/unverified-college-list/');
       if (response.statusCode == 200) {
@@ -50,7 +49,7 @@ class _CollegeValidationState extends State<CollegeValidation> {
         _isLoading.value = false;
       }
     } catch (e) {
-     return;
+      return;
     }
   }
 
@@ -152,10 +151,14 @@ class _CollegeValidationState extends State<CollegeValidation> {
                                             : 'Verify',
                                         radius: 30,
                                         color: Colors.green,
-                                        onTap: isVerifying ? null : () {
-
-                                          _verifyCollege(_collegeList[index].collegeId ?? '');  
-                                        },
+                                        onTap: isVerifying
+                                            ? null
+                                            : () {
+                                                _verifyCollege(
+                                                    _collegeList[index]
+                                                            .collegeId ??
+                                                        '');
+                                              },
                                       );
                                     })
                               ],

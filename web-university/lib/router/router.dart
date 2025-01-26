@@ -65,8 +65,10 @@ class AppRouter {
                 path: 'detail/:id',
                 parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (context, state) {
-                  return const CustomTransitionPage(
-                    child: CollegeDetailView(),
+                  return CustomTransitionPage(
+                    child: CollegeDetailView(
+                      id: state.pathParameters['id'].toString(),
+                    ),
                     transitionsBuilder: useNavChangeTransition,
                   );
                 },
@@ -91,8 +93,10 @@ class AppRouter {
                 path: 'detail/:id',
                 parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (context, state) {
-                  return const CustomTransitionPage(
-                    child: CollegeDetailView(),
+                  return CustomTransitionPage(
+                    child: CollegeDetailView(
+                      id: state.pathParameters['id'].toString(),
+                    ),
                     transitionsBuilder: useNavChangeTransition,
                   );
                 },
@@ -107,7 +111,7 @@ class AppRouter {
               return null;
             },
             pageBuilder: (context, state) {
-              return const CustomTransitionPage(
+              return CustomTransitionPage(
                 child: ProfileView(),
                 transitionsBuilder: useNavChangeTransition,
               );

@@ -4,6 +4,7 @@ import 'package:app/presentation/widget/custom_elevated_button.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
+
 List<CollegeListModel> _collegeList = [];
 
 final ValueNotifier<bool> _isLoading = ValueNotifier(false);
@@ -16,33 +17,28 @@ class ExploreView extends StatefulWidget {
 }
 
 class _ExploreViewState extends State<ExploreView> {
-  
-
-  
-
   Future _fetchColleges() async {
     try {
-      if(_collegeList.isNotEmpty){
+      if (_collegeList.isNotEmpty) {
         return;
       }
       _isLoading.value = true;
-      final response = await dioClient.dio.get('${Env().apiBaseUrl}/home/university/college-list/');
+      final response = await dioClient.dio
+          .get('${Env().apiBaseUrl}/home/university/college-list/');
       if (response.statusCode == 200) {
         final data = response.data as List;
         _collegeList = data.map((e) => CollegeListModel.fromJson(e)).toList();
         _isLoading.value = false;
-      }else{
+      } else {
         _isLoading.value = false;
       }
     } catch (e) {
       _isLoading.value = false;
-   
-  }
+    }
   }
 
   @override
   void initState() {
-    
     super.initState();
     _fetchColleges();
   }
@@ -51,15 +47,15 @@ class _ExploreViewState extends State<ExploreView> {
   Widget build(BuildContext context) {
     final inset = $style.insets;
     return ValueListenableBuilder(
-       valueListenable: _isLoading,
-        builder: (context, isLoading,_) {
-         if(isLoading){
-           return const Center(child: CircularProgressIndicator());
-         }
-         if(_collegeList.isEmpty){
-           return const Center(child: Text('No data found'));
-         }
-        
+        valueListenable: _isLoading,
+        builder: (context, isLoading, _) {
+          if (isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (_collegeList.isEmpty) {
+            return const Center(child: Text('No data found'));
+          }
+
           return SingleChildScrollView(
             padding: EdgeInsets.all(inset.sm),
             child: Column(
@@ -96,7 +92,8 @@ class _ExploreViewState extends State<ExploreView> {
                                   radius: 30,
                                   onTap: () {
                                     context.go(ScreenPath.detail(
-                                        _collegeList[index].collegeId ?? 'id88-78'));
+                                        _collegeList[index].collegeId ??
+                                            'id88-78'));
                                   },
                                 )
                               ],
