@@ -6,8 +6,8 @@ import 'package:app/resource/utils/extensions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
-
 String email = '';
+
 class ForgotPwdView extends StatelessWidget {
   ForgotPwdView({super.key});
 
@@ -171,6 +171,13 @@ class ForgotPwdView extends StatelessWidget {
                   );
                 },
               ),
+              Gap(inset.sm),
+              CustomTextButton(
+                text: 'Back',
+                onTap: () {
+                  context.go(ScreenPath.login);
+                },
+              )
             ],
           ),
         ),
