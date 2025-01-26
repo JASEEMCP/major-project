@@ -24,10 +24,12 @@ class _ProfileViewState extends State<ProfileView> {
 
   final _formKey = generateFormKey();
 
+  final ValueNotifier<bool> _isChanging = ValueNotifier(false);
+
   _changePassword(BuildContext ctx) async {
     if (_formKey.currentState!.validate()) {
       try {
-        _isLoading.value = true;
+        _isChanging.value = true;
         final response = await dioClient.dio.post(
           '${Env().apiBaseUrl}/home/reset-password/',
           data: {
@@ -36,19 +38,19 @@ class _ProfileViewState extends State<ProfileView> {
           },
         );
         if (response.statusCode == 200) {
-          _isLoading.value = false;
+          _isChanging.value = false;
           if (ctx.mounted) {
             ctx.showCustomSnackBar(
                 'Password changed successfully', Colors.green);
           }
         } else {
-          _isLoading.value = false;
+          _isChanging.value = false;
         }
       } on DioException catch (e) {
         if (ctx.mounted) {
           ctx.showCustomSnackBar(
               e.response?.data['message'] ?? 'An error occurred');
-          _isLoading.value = false;
+          _isChanging.value = false;
         }
       }
     }
@@ -58,7 +60,13 @@ class _ProfileViewState extends State<ProfileView> {
 
   _fetchProfile() async {
     try {
+      print(_universityProfileModel?.toJson());
       if (_universityProfileModel != null) {
+        _textController[0].text = _universityProfileModel?.name ?? 'N/A';
+        _textController[1].text = _universityProfileModel?.email ?? 'N/A';
+        _textController[2].text = _universityProfileModel?.website ?? 'N/A';
+        _textController[3].text = _universityProfileModel?.phoneNo ?? 'N/A';
+        _textController[4].text = _universityProfileModel?.address ?? 'N/A';
         return;
       }
       _isLoading.value = true;
@@ -76,6 +84,7 @@ class _ProfileViewState extends State<ProfileView> {
         _textController[4].text = _universityProfileModel?.address ?? 'N/A';
       }
     } on DioException catch (_) {
+      _universityProfileModel = null;
       _isLoading.value = false;
     }
   }
@@ -83,15 +92,16 @@ class _ProfileViewState extends State<ProfileView> {
   final List<TextEditingController> _textController =
       List.generate(5, (_) => generateTextController());
 
-  @override
-  void initState() {
-    super.initState();
-    _fetchProfile();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _fetchProfile();
+  // }
 
   @override
   Widget build(BuildContext context) {
     final inset = $style.insets;
+    _fetchProfile();
     return ValueListenableBuilder(
         valueListenable: _isLoading,
         builder: (context, isLoading, _) {
@@ -211,7 +221,7 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
                 Gap(inset.sm),
                 ValueListenableBuilder(
-                    valueListenable: _isLoading,
+                    valueListenable: _isChanging,
                     builder: (context, isLoading, _) {
                       return CustomButton(
                         name: isLoading ? 'Submitting' : 'Submit',
