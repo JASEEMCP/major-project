@@ -5,6 +5,7 @@ import 'package:app/presentation/widget/custom_elevated_button.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
+import 'package:dio/dio.dart';
 
 List<CollegeListModel> _collegeList = [];
 
@@ -47,6 +48,7 @@ class _CollegeValidationState extends State<CollegeValidation> {
         _collegeList = data.map((e) => CollegeListModel.fromJson(e)).toList();
         _isLoading.value = true;
         _isLoading.value = false;
+
       }
     } catch (e) {
       return;
@@ -55,7 +57,7 @@ class _CollegeValidationState extends State<CollegeValidation> {
 
   final ValueNotifier<bool> _isVerifying = ValueNotifier(false);
 
-  _verifyCollege(String collegeId) async {
+  _verifyCollege(String collegeId,BuildContext ctx) async {
     try {
       _isVerifying.value = true;
       final response = await dioClient.dio.put(
@@ -65,12 +67,22 @@ class _CollegeValidationState extends State<CollegeValidation> {
         },
       );
       if (response.statusCode == 200) {
+        if (ctx.mounted) {
+          ctx.showCustomSnackBar('College verified successfully', Colors.green);
+        }
         await _refresh();
         _isVerifying.value = false;
       } else {
+        if (ctx.mounted) {
+          ctx.showCustomSnackBar(
+              response.data['message'] ?? 'An error occurred');
+        }
         _isVerifying.value = false;
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      if (ctx.mounted) {
+        ctx.showCustomSnackBar(e.response?.data['message'] ?? 'An error occurred');
+      }
       _isVerifying.value = false;
     }
   }
@@ -157,7 +169,7 @@ class _CollegeValidationState extends State<CollegeValidation> {
                                                 _verifyCollege(
                                                     _collegeList[index]
                                                             .collegeId ??
-                                                        '');
+                                                        '',context);
                                               },
                                       );
                                     })

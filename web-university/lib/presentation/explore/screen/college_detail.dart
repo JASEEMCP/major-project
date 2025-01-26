@@ -1,4 +1,4 @@
-import 'dart:math';
+
 
 import 'package:app/domain/college_detail_model/college_detail_model.dart';
 import 'package:app/domain/college_detail_model/event_list.dart';
@@ -10,7 +10,7 @@ import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
 
 class CollegeDetailView extends StatefulWidget {
-  CollegeDetailView({super.key, required this.id});
+  const CollegeDetailView({super.key, required this.id});
 
   final String id;
 
@@ -87,6 +87,7 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
                   ),
                   Gap(inset.sm),
                   Column(
+                    spacing: inset.xs,
                     children: [
                       rowTitleText('Name', _collegeDetail?.name ?? 'N/A'),
                       rowTitleText(
@@ -209,7 +210,7 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
                               separatorBuilder: (context, index) =>
                                   Gap(inset.xs),
                               shrinkWrap: true,
-                              itemCount: 3,
+                              itemCount: _collegeDetail?.clubList?.length ?? 0,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (ctx, index) {
                                 return Container(
@@ -220,10 +221,16 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomText(
-                                        txt: 'IEDC',
+                                        txt: _collegeDetail?.clubList?[index]
+                                                .authorityName ??
+                                            'N/A',
                                         color: Colors.green,
                                       ),
-                                      rowTitleText('Authorizer', 'Rahul'),
+                                      rowTitleText(
+                                          'Authorizer',
+                                          _collegeDetail?.clubList?[index]
+                                                  .authorName ??
+                                              'N/A'),
                                     ],
                                   ),
                                 );

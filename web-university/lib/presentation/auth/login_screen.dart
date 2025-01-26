@@ -18,7 +18,7 @@ class ScreenLogin extends StatelessWidget {
     (_) => generateTextController(),
   );
   ApiState apiState = InitialState();
-  _login() async {
+  _login(BuildContext ctx) async {
     apiState = LoadingState();
 
     try {
@@ -32,12 +32,23 @@ class ScreenLogin extends StatelessWidget {
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
+        tokenCubit.updateToken(pref.token.value);
 
         appRouter.go(ScreenPath.explore);
       } else {
+        if (ctx.mounted) {
+          ctx.showCustomSnackBar(
+            response.data['message'] ?? 'An error occurred',
+          );
+        }
         apiState = ErrorState();
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      if (ctx.mounted) {
+        ctx.showCustomSnackBar(
+          e.response?.data['message'] ?? 'An error occurred',
+        );
+      }
       apiState = ErrorState();
     }
   }
@@ -120,7 +131,7 @@ class ScreenLogin extends StatelessWidget {
                   name: 'Login',
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      _login();
+                      _login(context);
                     }
                   },
                 ),
