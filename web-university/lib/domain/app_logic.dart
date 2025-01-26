@@ -1,4 +1,3 @@
-import 'package:app/router/router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:app/main.dart';
 import 'package:app/router/router_path.dart';

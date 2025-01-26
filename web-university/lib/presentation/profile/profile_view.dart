@@ -24,8 +24,6 @@ class _ProfileViewState extends State<ProfileView> {
 
   final _formKey = generateFormKey();
 
-  
-
   _changePassword(BuildContext ctx) async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -87,7 +85,6 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   void initState() {
-    
     super.initState();
     _fetchProfile();
   }
@@ -147,70 +144,71 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
                 Gap(inset.sm),
                 ValueListenableBuilder(
-                    valueListenable: _isObscure,
-                    builder: (context, isObscure, _) {
-                      return Form(
-                        key: _formKey,
-                        child: Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
-                          children: [
-                            CustomTextField(
-                              hint: 'Old Password',
-                              isObscure: isObscure,
-                              controller: _pwdController[0],
-                              validator: (p0) {
-                                if (p0!.trim().isEmpty) {
-                                  return '* Password Required';
-                                }
+                  valueListenable: _isObscure,
+                  builder: (context, isObscure, _) {
+                    return Form(
+                      key: _formKey,
+                      child: Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          CustomTextField(
+                            hint: 'Old Password',
+                            isObscure: isObscure,
+                            controller: _pwdController[0],
+                            validator: (p0) {
+                              if (p0!.trim().isEmpty) {
+                                return '* Password Required';
+                              }
 
-                                return null;
+                              return null;
+                            },
+                          ),
+                          CustomTextField(
+                            hint: 'New Password',
+                            isObscure: isObscure,
+                            controller: _pwdController[1],
+                            validator: (p0) {
+                              if (p0!.trim().isEmpty) {
+                                return '* Password Required';
+                              }
+                              if (_pwdController.isValidPasswordAt(1)) {
+                                return '* Password must be at least 8 characters long and include a number and a special character';
+                              }
+                              return null;
+                            },
+                          ),
+                          CustomTextField(
+                            hint: 'Confirm Password',
+                            controller: _pwdController[2],
+                            isObscure: isObscure,
+                            validator: (p0) {
+                              if (p0!.trim().isEmpty) {
+                                return '* Password Required';
+                              }
+                              if (_pwdController.isValidPasswordAt(2)) {
+                                return '* Password must be at least 8 characters long and include a number and a special character';
+                              }
+                              if (![_pwdController[1], _pwdController[2]]
+                                  .allSame()) {
+                                return '* Passwords do not match';
+                              }
+                              return null;
+                            },
+                            suffix: IconButton(
+                              icon: Icon(isObscure
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                              onPressed: () {
+                                _isObscure.value = !isObscure;
                               },
                             ),
-                            CustomTextField(
-                              hint: 'New Password',
-                              isObscure: isObscure,
-                              controller: _pwdController[1],
-                              validator: (p0) {
-                                if (p0!.trim().isEmpty) {
-                                  return '* Password Required';
-                                }
-                                if (_pwdController.isValidPasswordAt(1)) {
-                                  return '* Password must be at least 8 characters long and include a number and a special character';
-                                }
-                                return null;
-                              },
-                            ),
-                            CustomTextField(
-                              hint: 'Confirm Password',
-                              controller: _pwdController[2],
-                              isObscure: isObscure,
-                              validator: (p0) {
-                                if (p0!.trim().isEmpty) {
-                                  return '* Password Required';
-                                }
-                                if (_pwdController.isValidPasswordAt(2)) {
-                                  return '* Password must be at least 8 characters long and include a number and a special character';
-                                }
-                                if (![_pwdController[1], _pwdController[2]]
-                                    .allSame()) {
-                                  return '* Passwords do not match';
-                                }
-                                return null;
-                              },
-                              suffix: IconButton(
-                                icon: Icon(isObscure
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
-                                onPressed: () {
-                                  _isObscure.value = !isObscure;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
                 Gap(inset.sm),
                 ValueListenableBuilder(
                     valueListenable: _isLoading,

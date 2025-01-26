@@ -48,7 +48,7 @@ class TokenCubit extends Cubit<TokenState> {
 
   Future<String?> refreshToken() async {
     final response =
-        await dioClient.dio.get("${Env().apiBaseUrl}/home/refresh-token/");
+        await dioClient.dio.get("${Env().apiBaseUrl}home/token/refresh/");
     if (response.statusCode == 200) {
       final token = Token.fromJson(response.data);
       pref.token.value.accessToken = token.accessToken;

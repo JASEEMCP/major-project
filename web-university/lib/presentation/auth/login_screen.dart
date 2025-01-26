@@ -123,7 +123,9 @@ class ScreenLogin extends StatelessWidget {
                   alignment: const Alignment(-0.9, 0),
                   child: CustomTextButton(
                     text: 'Forgot Password?',
-                    onTap: () {},
+                    onTap: () {
+                      context.go(ScreenPath.forgotPwd);
+                    },
                   ),
                 ),
                 Gap(inset.sm),
