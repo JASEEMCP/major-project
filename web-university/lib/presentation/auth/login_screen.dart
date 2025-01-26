@@ -32,6 +32,7 @@ class ScreenLogin extends StatelessWidget {
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
+
         appRouter.go(ScreenPath.explore);
       } else {
         apiState = ErrorState();
@@ -86,8 +87,8 @@ class ScreenLogin extends StatelessWidget {
                     valueListenable: _visibilityNotifier,
                     builder: (context, isVisible, _) {
                       return CustomTextField(
-                      hint: 'Password',
-                      isObscure: isVisible,
+                        hint: 'Password',
+                        isObscure: isVisible,
                         suffix: IconButton(
                           icon: Icon(
                             isVisible ? Icons.visibility_off : Icons.visibility,
@@ -96,17 +97,16 @@ class ScreenLogin extends StatelessWidget {
                             _visibilityNotifier.value = !isVisible;
                           },
                         ),
-                      controller: _textController[1],
-                      validator: (email) {
-                        if (_textController.isItemEmpty(0)) {
-                          return "* Required";
-                        }
-                    
-                        return null;
-                      },
-                    );
-                  }
-                ),
+                        controller: _textController[1],
+                        validator: (email) {
+                          if (_textController.isItemEmpty(0)) {
+                            return "* Required";
+                          }
+
+                          return null;
+                        },
+                      );
+                    }),
                 Gap(inset.xs),
                 Align(
                   alignment: const Alignment(-0.9, 0),

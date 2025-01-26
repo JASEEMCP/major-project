@@ -50,6 +50,10 @@ class AppRouter {
           GoRoute(
             path: ScreenPath.explore,
             parentNavigatorKey: _shellNavigatorKey,
+            redirect: (context, state) {
+              tabChangeNotifier.value = 0;
+              return null;
+            },
             pageBuilder: (context, state) {
               return const CustomTransitionPage(
                 child: ExploreView(),
@@ -72,6 +76,10 @@ class AppRouter {
           GoRoute(
             path: ScreenPath.validation,
             parentNavigatorKey: _shellNavigatorKey,
+            redirect: (context, state) {
+              tabChangeNotifier.value = 1;
+              return null;
+            },
             pageBuilder: (context, state) {
               return const CustomTransitionPage(
                 child: CollegeValidation(),
@@ -94,6 +102,10 @@ class AppRouter {
           GoRoute(
             path: ScreenPath.profile,
             parentNavigatorKey: _shellNavigatorKey,
+            redirect: (context, state) {
+              tabChangeNotifier.value = 2;
+              return null;
+            },
             pageBuilder: (context, state) {
               return const CustomTransitionPage(
                 child: ProfileView(),
@@ -117,11 +129,10 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
   if (state.uri.path == ScreenPath.splash && !a.isBootStrapComplete) {
     return ScreenPath.splash;
   }
-
   if (!a.isBootStrapComplete) {
     _initialDeepLink ??= state.uri.toString();
-
     return ScreenPath.splash;
   }
+
   return null;
 }

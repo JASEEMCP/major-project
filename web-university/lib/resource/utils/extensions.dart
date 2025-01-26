@@ -17,8 +17,8 @@ extension BuildContextX on BuildContext {
 
   void showCustomSnackBar(String content) =>
       ScaffoldMessenger.of(this).showSnackBar(showSnackBar(content));
-  
 }
+
 /// String
 extension StringStyling on String {
   String toCapitalized() =>

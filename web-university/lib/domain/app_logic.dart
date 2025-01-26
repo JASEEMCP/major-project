@@ -15,16 +15,17 @@ class AppLogic {
       await pref.load();
 
       /// Initializing token state
-      //await tokenCubit.initTokenState();
+      await tokenCubit.initTokenState();
 
       ///Flagging bootstrap
+      //print(pref.token.value.toJson());
       isBootStrapComplete = true;
-      // if (pref.token.value.isProfileCreated ?? false) {
-      //   appRouter.go(ScreenPath.explore);
-      // } else {
-      //   appRouter.go(ScreenPath.explore);
-      // }
-      //appRouter.go(initialDeepLink ?? ScreenPath.explore);
+      if (pref.token.value.isProfileCreated ?? false) {
+        appRouter.go(ScreenPath.explore);
+      } else {
+        appRouter.go(ScreenPath.login);
+      }
+      // appRouter.go(initialDeepLink ?? ScreenPath.explore);
     } catch (e) {
       //appRouter.go(ScreenPath.login);
     }

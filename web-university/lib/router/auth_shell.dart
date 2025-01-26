@@ -1,5 +1,3 @@
-
-
 import 'package:app/presentation/auth/login_screen.dart';
 import 'package:app/presentation/main_screen/auth_main.dart';
 import 'package:app/resource/utils/common_lib.dart';
@@ -28,11 +26,8 @@ class AuthShell {
               child: ScreenLogin(),
             );
           },
-          
         ),
-        
       ],
     ),
   ];
- 
 }
