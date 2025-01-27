@@ -43,8 +43,6 @@ class CustomDropDownSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return CustomDropdownMenu<MenuItem>(
       curserColor: Colors.deepPurple,
       validator: validator,

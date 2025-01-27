@@ -4,24 +4,19 @@ class ScreenPath {
   /// Auth path
   static const splash = '/';
   static const login = '/login';
-    static const resetPwd = '/reset-pwd';
+  static const resetPwd = '/reset-pwd';
   static const forgotPwd = '/forgot-pwd';
 
   /// Main Routes
-  
+
   static const profile = '/profile';
   static const hostEvent = '/host';
   static const explore = '/explore';
 
-
   /// Sub-Routes
-  
-  static  detail(String id) => _appendIdIntoCurrentPath('/detail/$id');
-  static  createEvent() => _appendIdIntoCurrentPath('/create');
 
-
-
-  
+  static detail(String id) => _appendIdIntoCurrentPath('/detail/$id');
+  static createEvent() => _appendIdIntoCurrentPath('/create');
 
   ///Appending path
   static _appendIdIntoCurrentPath(String path) {

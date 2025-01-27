@@ -28,10 +28,12 @@ class ScreenLogin extends StatelessWidget {
           'email': _textController[0].text.trim(),
           'password': _textController[1].text.trim(),
         },
+        
       );
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
+        tokenCubit.updateToken(pref.token.value);
         appRouter.go(ScreenPath.explore);
       } else {
         apiState = ErrorState();

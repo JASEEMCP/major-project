@@ -1,3 +1,4 @@
+import 'package:app/main.dart';
 import 'package:app/presentation/event/host_event_view.dart';
 import 'package:app/presentation/event/view/create_event_view.dart';
 import 'package:app/presentation/event/view/event_detail_view.dart';
@@ -57,7 +58,7 @@ class AppRouter {
               );
             },
           ),
-          
+
           GoRoute(
             path: ScreenPath.hostEvent,
             parentNavigatorKey: _shellNavigatorKey,
@@ -72,8 +73,10 @@ class AppRouter {
                 path: 'detail/:id',
                 parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (context, state) {
-                  return const CustomTransitionPage(
-                    child: EventDetailView(),
+                  return  CustomTransitionPage(
+                    child: EventDetailView(
+                      id: state.pathParameters['id'].toString(),
+                    ),
                     transitionsBuilder: useNavChangeTransition,
                   );
                 },
@@ -113,5 +116,14 @@ String? _initialDeepLink;
 String? get initialDeepLink => _initialDeepLink;
 
 String? _handleRedirect(BuildContext context, GoRouterState state) {
+  final a = appLogic;
+  if (state.uri.path == ScreenPath.splash && !a.isBootStrapComplete) {
+    return ScreenPath.splash;
+  }
+  if (!a.isBootStrapComplete) {
+    _initialDeepLink ??= state.uri.toString();
+    return ScreenPath.splash;
+  }
+
   return null;
 }

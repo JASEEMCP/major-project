@@ -1,11 +1,9 @@
+abstract class ApiState {}
 
+class LoadingState extends ApiState {}
 
-abstract class ApiState{}
+class InitialState extends ApiState {}
 
-class LoadingState extends ApiState{}
+class ErrorState extends ApiState {}
 
-class InitialState extends ApiState{}
-
-class ErrorState extends ApiState{}
-
-class SuccessState extends ApiState{}
+class SuccessState extends ApiState {}
