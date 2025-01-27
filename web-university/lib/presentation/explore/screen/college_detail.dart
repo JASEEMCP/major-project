@@ -78,8 +78,10 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
                         },
                       ),
                       Gap(inset.sm),
-                      const CustomText(
-                        txt: 'College Name',
+                      CustomText(
+                        txt: _collegeDetail?.name ?? 'N/A',
+                        color: context.theme.indigo,
+                        fontSize: 20,
                       ),
                     ],
                   ),
@@ -87,7 +89,7 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
                   Column(
                     spacing: inset.xs,
                     children: [
-                      rowTitleText('Name', _collegeDetail?.name ?? 'N/A'),
+                      
                       rowTitleText(
                           'Short Name', _collegeDetail?.shortName ?? 'N/A'),
                       rowTitleText('Address', _collegeDetail?.address ?? 'N/A'),

@@ -1,3 +1,4 @@
+import 'package:app/domain/explorer/department_list_model/department_list_model.dart';
 import 'package:app/domain/explorer/staff_list_model/staff_list_model.dart';
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/explore/explore_view.dart';
@@ -14,6 +15,8 @@ final ValueNotifier<bool> _isLoading = ValueNotifier(false);
 
 List<StaffListModel> _staffList = [];
 
+List<DepartmentListModel> _departmentListModel = [];
+
 class AddStaffView extends StatefulWidget {
   const AddStaffView({super.key});
 
@@ -22,6 +25,26 @@ class AddStaffView extends StatefulWidget {
 }
 
 class _AddStaffViewState extends State<AddStaffView> {
+  List<MenuItem> _deptMenu = [];
+
+  _fetchDepartmentList() async {
+    try {
+      if (_departmentListModel.isNotEmpty) return;
+
+      final response = await dioClient.dio
+          .get('${Env().apiBaseUrl}home/college/department-list/');
+      if (response.statusCode == 200) {
+        _departmentListModel = (response.data as List)
+            .map((e) => DepartmentListModel.fromJson(e))
+            .toList();
+
+        _deptMenu = _departmentListModel
+            .map((e) => MenuItem(e.departmentId.toString(), e.name.toString()))
+            .toList();
+      }
+    } on DioException catch (_) {}
+  }
+
   _fetchStaffList() async {
     try {
       if (_staffList.isNotEmpty) return;
@@ -29,6 +52,7 @@ class _AddStaffViewState extends State<AddStaffView> {
 
       final response = await dioClient.dio
           .get('${Env().apiBaseUrl}home/college/staff-list/');
+      await _fetchDepartmentList();
       if (response.statusCode == 200) {
         _staffList = (response.data as List)
             .map((e) => StaffListModel.fromJson(e))
@@ -36,6 +60,52 @@ class _AddStaffViewState extends State<AddStaffView> {
         _isLoading.value = false;
       }
     } on DioException catch (_) {
+      _isLoading.value = false;
+    }
+  }
+
+  _refreshStaffList() async {
+    try {
+      final response = await dioClient.dio
+          .get('${Env().apiBaseUrl}home/college/staff-list/');
+      await _fetchDepartmentList();
+      if (response.statusCode == 200) {
+        _staffList = (response.data as List)
+            .map((e) => StaffListModel.fromJson(e))
+            .toList();
+        _isLoading.value = true;
+        _isLoading.value = false;
+      }
+    } on DioException catch (_) {}
+  }
+
+  _addStaff(BuildContext ctx) async {
+    try {
+      final response = await dioClient.dio
+          .post('${Env().apiBaseUrl}home/college/add-staff/', data: {
+        'name': _staffAddController[0].text.toTitleCase(),
+        'email': _staffAddController[1].text.trim(),
+        'department': selectedMenuId,
+        'gender': _staffAddController[3].text.trim(),
+        'password': _staffAddController[4].text.trim(),
+        'is_tutor': _selectedRole.value == 'Tutor',
+        'is_admin': _selectedRole.value == 'Admin',
+        'academic_start_year': handleNullString(_staffAddController[5]),
+        'academic_end_year': handleNullString(_staffAddController[6])
+      });
+      if (response.statusCode == 201) {
+        if (ctx.mounted) {
+          ctx.pop();
+          await _refreshStaffList();
+          if (ctx.mounted) {
+            ctx.showCustomSnackBar('Staff added successfully', Colors.green);
+          }
+        }
+      }
+    } on DioException catch (_) {
+      if (ctx.mounted) {
+        ctx.showCustomSnackBar('Failed to add Staff', Colors.red);
+      }
       _isLoading.value = false;
     }
   }
@@ -49,6 +119,11 @@ class _AddStaffViewState extends State<AddStaffView> {
   final _formKey = generateFormKey();
 
   List<TextEditingController> _staffAddController = [];
+
+  final ValueNotifier<String> _selectedRole = ValueNotifier('some');
+
+  String selectedMenuId = '';
+
   @override
   Widget build(BuildContext context) {
     final inset = $style.insets;
@@ -74,7 +149,7 @@ class _AddStaffViewState extends State<AddStaffView> {
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         // Add Department API
-                        //_addDepartment(context);
+                        _addStaff(context);
                       }
                     },
                     child: Form(
@@ -106,8 +181,13 @@ class _AddStaffViewState extends State<AddStaffView> {
                               return null;
                             },
                           ),
-                          CustomTextField(
-                            hint: 'Department',
+                          CustomDropDownSearch(
+                            menu: _deptMenu,
+                            controller: _staffAddController[2],
+                            onSelect: (mm) {
+                              selectedMenuId = mm?.id ?? '';
+                            },
+                            hintText: 'Department',
                             validator: (p0) {
                               if (_staffAddController.isItemEmpty(2)) {
                                 return '* Required';
@@ -117,6 +197,7 @@ class _AddStaffViewState extends State<AddStaffView> {
                           ),
                           CustomDropDownSearch(
                             hintText: 'Gender',
+                            controller: _staffAddController[3],
                             enableController: false,
                             validator: (p0) {
                               if (_staffAddController.isItemEmpty(3)) {
@@ -144,36 +225,77 @@ class _AddStaffViewState extends State<AddStaffView> {
                               return null;
                             },
                           ),
-                          CustomTextField(
-                            hint: 'Academic Start Date',
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(4)
-                            ],
-                            controller: _staffAddController[5],
-                            validator: (p0) {
-                              if (_staffAddController.isItemEmpty(5)) {
-                                return '* Required';
-                              }
-                              if (!isInt(_staffAddController[5].text.trim())) {
-                                return 'Enter a valid Year';
-                              }
-                              return null;
-                            },
-                          ),
-                          CustomTextField(
-                            hint: 'Academic End Date',
-                            controller: _staffAddController[6],
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(4)
-                            ],
-                            validator: (p0) {
-                              if (_staffAddController.isItemEmpty(6)) {
-                                return '* Required';
-                              }
-                              if (!isInt(_staffAddController[6].text.trim())) {
-                                return 'Enter a valid Year';
-                              }
-                              return null;
+                          ValueListenableBuilder(
+                            valueListenable: _selectedRole,
+                            builder: (context, selectedRole, _) {
+                              return Column(
+                                children: [
+                                  RadioListTile(
+                                    value: selectedRole,
+                                    groupValue: 'Admin',
+                                    title: const CustomText(txt: 'Admin'),
+                                    contentPadding: EdgeInsets.zero,
+                                    onChanged: (s) {
+                                      _selectedRole.value = 'Admin';
+                                    },
+                                  ),
+                                  RadioListTile(
+                                    value: selectedRole,
+                                    groupValue: 'Tutor',
+                                    contentPadding: EdgeInsets.zero,
+                                    dense: true,
+                                    title: const CustomText(txt: 'Tutor'),
+                                    onChanged: (s) {
+                                      _selectedRole.value = 'Tutor';
+                                    },
+                                  ),
+                                  Gap(inset.sm),
+                                  if (selectedRole == 'Tutor')
+                                    Column(
+                                      spacing: inset.sm,
+                                      children: [
+                                        CustomTextField(
+                                          hint: 'Academic Start Date',
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(4)
+                                          ],
+                                          controller: _staffAddController[5],
+                                          validator: (p0) {
+                                            if (_staffAddController
+                                                .isItemEmpty(5)) {
+                                              return '* Required';
+                                            }
+                                            if (!isInt(_staffAddController[5]
+                                                .text
+                                                .trim())) {
+                                              return 'Enter a valid Year';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        CustomTextField(
+                                          hint: 'Academic End Date',
+                                          controller: _staffAddController[6],
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(4)
+                                          ],
+                                          validator: (p0) {
+                                            if (_staffAddController
+                                                .isItemEmpty(6)) {
+                                              return '* Required';
+                                            }
+                                            if (!isInt(_staffAddController[6]
+                                                .text
+                                                .trim())) {
+                                              return 'Enter a valid Year';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                ],
+                              );
                             },
                           ),
                         ],
@@ -223,8 +345,9 @@ class _AddStaffViewState extends State<AddStaffView> {
                               _staffList[index].department ?? 'N/A'),
                           rowTitleText(
                               'Gender', _staffList[index].gender ?? 'N/A'),
-                          rowTitleText('Academic Year',
-                              _staffList[index].academicYear ?? 'N/A'),
+                          if ((_staffList[index].isTutor ?? false))
+                            rowTitleText('Academic Year',
+                                _staffList[index].academicYear ?? 'N/A'),
                           if ((_staffList[index].isAdmin ?? false) ||
                               (_staffList[index].isTutor ?? false))
                             Row(

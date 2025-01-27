@@ -64,7 +64,7 @@ class _AddDepartmentViewState extends State<AddDepartmentView> {
         '${Env().apiBaseUrl}home/college/add-department/',
         data: {
           'name': _deptAddController[0].text.toTitleCase(),
-          'short_name': _deptAddController[1].text.toTitleCase(),
+          'short_name': _deptAddController[1].text.toUpperCase(),
           'strength': _deptAddController[2].text.trim(),
         }
       );
@@ -82,7 +82,7 @@ class _AddDepartmentViewState extends State<AddDepartmentView> {
       if (ctx.mounted) {
         ctx.showCustomSnackBar('Failed to add department', Colors.red);
       }
-      _isLoading.value = false;
+      
     }
   }
 

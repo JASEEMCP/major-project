@@ -115,6 +115,7 @@ Future<dynamic> customAlertBox(
     context: context,
     builder: (ctx) {
       return AlertDialog(
+        scrollable: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
@@ -133,10 +134,12 @@ Future<dynamic> customAlertBox(
             ),
           ],
         ),
-        content: child?? CustomText(
-          fontWeight: FontWeight.w400,
-          txt: content ?? 'Are you sure you want to proceed with the booking?',
-        ),
+        content: child ??
+            CustomText(
+              fontWeight: FontWeight.w400,
+              txt: content ??
+                  'Are you sure you want to proceed with the booking?',
+            ),
         actions: [
           CustomButton(
             name: 'Confirm',
