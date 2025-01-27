@@ -119,7 +119,7 @@ class ForgotPwdView extends StatelessWidget {
                   builder: (context, isSended, _) {
                     return CustomTextField(
                       readOnly: isSended,
-                      hint: 'University email',
+                      hint: 'Club email',
                       validator: (email) {
                         if (_textController.isItemEmpty(0)) {
                           return "* Required";
