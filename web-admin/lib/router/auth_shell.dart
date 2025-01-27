@@ -1,5 +1,7 @@
 
 
+import 'package:app/presentation/auth/forgot_pwd/forgot_pwd_view.dart';
+import 'package:app/presentation/auth/forgot_pwd/reset_pwd_view.dart';
 import 'package:app/presentation/auth/login_screen.dart';
 import 'package:app/presentation/main_screen/auth_main.dart';
 import 'package:app/resource/utils/common_lib.dart';
@@ -29,6 +31,28 @@ class AuthShell {
             );
           },
           
+        ),
+        // Forgot Password Screen
+        GoRoute(
+          parentNavigatorKey: _authNavigatorKey,
+          path: ScreenPath.forgotPwd,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              transitionsBuilder: useNavChangeTransition,
+              child: ForgotPwdView(),
+            );
+          },
+        ),
+        // Reset PWd
+        GoRoute(
+          parentNavigatorKey: _authNavigatorKey,
+          path: ScreenPath.resetPwd,
+          pageBuilder: (context, state) {
+            return const CustomTransitionPage(
+              transitionsBuilder: useNavChangeTransition,
+              child: ResetPwdView(),
+            );
+          },
         ),
         
       ],

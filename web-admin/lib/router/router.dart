@@ -1,3 +1,4 @@
+import 'package:app/main.dart';
 import 'package:app/presentation/event/event_view.dart';
 import 'package:app/presentation/event/add_club_view.dart';
 import 'package:app/presentation/event/host_event_view.dart';
@@ -135,5 +136,14 @@ String? _initialDeepLink;
 String? get initialDeepLink => _initialDeepLink;
 
 String? _handleRedirect(BuildContext context, GoRouterState state) {
+    final a = appLogic;
+  if (state.uri.path == ScreenPath.splash && !a.isBootStrapComplete) {
+    return ScreenPath.splash;
+  }
+  if (!a.isBootStrapComplete) {
+    _initialDeepLink ??= state.uri.toString();
+    return ScreenPath.splash;
+  }
+
   return null;
 }

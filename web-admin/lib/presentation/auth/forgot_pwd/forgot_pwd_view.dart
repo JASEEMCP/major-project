@@ -146,7 +146,9 @@ class ForgotPwdView extends StatelessWidget {
                             }
                             return null;
                           },
-                          inputFormatter: [LengthLimitingTextInputFormatter(4)],
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(4)
+                          ],
                           controller: _textController[1],
                         );
                 },
