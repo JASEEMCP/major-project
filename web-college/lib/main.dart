@@ -1,3 +1,4 @@
+import 'package:app/application/auth/token_cubit/token_cubit.dart';
 import 'package:app/resource/api/dio_client.dart';
 import 'package:flutter/material.dart';
 import 'package:app/domain/app_logic.dart';
@@ -23,5 +24,5 @@ AppStyle get $style => RootApp.style;
 final appRouter = AppRouter.router;
 PrefInfo get pref => getIt<PrefInfo>();
 AppLogic get appLogic => getIt<AppLogic>();
-
+TokenCubit get tokenCubit => getIt<TokenCubit>();
 DioClient get dioClient => getIt<DioClient>();

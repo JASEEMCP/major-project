@@ -14,7 +14,7 @@ class AppLogic {
       await pref.load();
 
       /// Initializing token state
-      //await tokenCubit.initTokenState();
+      await tokenCubit.initTokenState();
 
       ///Flagging bootstrap
       isBootStrapComplete = true;

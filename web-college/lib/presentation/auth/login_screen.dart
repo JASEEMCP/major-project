@@ -33,6 +33,7 @@ class ScreenLogin extends StatelessWidget {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
         appRouter.go(ScreenPath.explore);
+        tokenCubit.updateToken(pref.token.value);
       } else {
         apiState = ErrorState();
       }
@@ -116,7 +117,9 @@ class ScreenLogin extends StatelessWidget {
                   alignment: const Alignment(-0.9, 0),
                   child: CustomTextButton(
                     text: 'Forgot Password?',
-                    onTap: () {},
+                    onTap: () {
+                      context.go(ScreenPath.forgotPwd);
+                    },
                   ),
                 ),
                 Gap(inset.sm),

@@ -109,6 +109,7 @@ Future<dynamic> customAlertBox(
   Function()? onTap,
   String? title,
   String? content,
+  Widget? child,
 }) {
   return showDialog(
     context: context,
@@ -132,7 +133,7 @@ Future<dynamic> customAlertBox(
             ),
           ],
         ),
-        content: CustomText(
+        content: child?? CustomText(
           fontWeight: FontWeight.w400,
           txt: content ?? 'Are you sure you want to proceed with the booking?',
         ),

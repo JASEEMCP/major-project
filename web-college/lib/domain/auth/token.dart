@@ -13,6 +13,10 @@ class Token {
   @JsonKey(name: 'user_type')
   String? userType;
   String? name;
+  @JsonKey(name: 'is_verified')
+  bool? isVerified;
+  @JsonKey(name: 'profile_id')
+  String? profileId;
 
   Token({
     this.refreshToken,
@@ -20,6 +24,8 @@ class Token {
     this.isProfileCreated,
     this.name,
     this.userType,
+    this.isVerified,
+    this.profileId,
   });
 
   factory Token.fromJson(Map<String, dynamic> json) => _$TokenFromJson(json);
@@ -32,6 +38,8 @@ class Token {
     bool? isProfileCreated,
     String? name,
     String? userType,
+    bool? isVerified,
+    String? profileId,
   }) {
     return Token(
       refreshToken: refreshToken ?? this.refreshToken,
@@ -39,6 +47,8 @@ class Token {
       isProfileCreated: isProfileCreated ?? this.isProfileCreated,
       name: name ?? this.name,
       userType: userType ?? this.userType,
+      isVerified: isVerified ?? this.isVerified,
+      profileId: profileId ?? this.profileId,
     );
   }
 }
