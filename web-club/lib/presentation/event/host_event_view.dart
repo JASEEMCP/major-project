@@ -49,12 +49,7 @@ class _HostEventViewState extends State<HostEventView> {
         valueListenable: _isLoading,
         builder: (context, isLoading, _) {
           if (isLoading) {
-            return const Column(
-              children: [
-                Gap(200),
-                CircularProgressIndicator(),
-              ],
-            );
+            return const Center(child: CircularProgressIndicator());
           }
           if (_myEventsList.isEmpty) {
             return const Center(child: CustomText(txt: 'No data found'));

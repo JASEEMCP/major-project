@@ -73,7 +73,7 @@ class AppRouter {
                 path: 'detail/:id',
                 parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (context, state) {
-                  return  CustomTransitionPage(
+                  return CustomTransitionPage(
                     child: EventDetailView(
                       id: state.pathParameters['id'].toString(),
                     ),

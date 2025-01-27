@@ -53,12 +53,7 @@ class _EventDetailViewState extends State<EventDetailView> {
       valueListenable: _isLoading,
       builder: (context, isLoading, _) {
         if (isLoading) {
-          return const Column(
-            children: [
-              Gap(200),
-              CircularProgressIndicator(),
-            ],
-          );
+          return const Center(child: CircularProgressIndicator());
         }
         if (_myEvent == null) {
           return const Center(child: CustomText(txt: 'No data found'));
@@ -114,10 +109,11 @@ class _EventDetailViewState extends State<EventDetailView> {
                 ),
               ),
               Gap(inset.sm),
-              const CustomText(
-                txt: "Registered Students",
-                fontSize: 20,
-              ),
+              if ((_myEvent?.students?.isNotEmpty ?? false))
+                const CustomText(
+                  txt: "Registered Students",
+                  fontSize: 20,
+                ),
               Gap(inset.sm),
               ListView.separated(
                 itemCount: _myEvent?.students?.length ?? 0,
