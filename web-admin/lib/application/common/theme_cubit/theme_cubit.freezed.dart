@@ -72,6 +72,9 @@ class _$ThemeStateCopyWithImpl<$Res, $Val extends ThemeState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of ThemeState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -88,6 +91,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of ThemeState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -193,6 +199,8 @@ class __$$ThemeImplCopyWithImpl<$Res>
       _$ThemeImpl _value, $Res Function(_$ThemeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ThemeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -231,7 +239,9 @@ class _$ThemeImpl implements _Theme {
   @override
   int get hashCode => Object.hash(runtimeType, theme);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ThemeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ThemeImplCopyWith<_$ThemeImpl> get copyWith =>
@@ -304,7 +314,10 @@ abstract class _Theme implements ThemeState {
   const factory _Theme(final ThemeType theme) = _$ThemeImpl;
 
   ThemeType get theme;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ThemeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ThemeImplCopyWith<_$ThemeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -56,9 +56,7 @@ class AddClubView extends StatelessWidget {
                             name: 'Verify',
                             radius: 30,
                             color: Colors.green,
-                            onTap: () {
-                              
-                            },
+                            onTap: () {},
                           )
                         ],
                       ),

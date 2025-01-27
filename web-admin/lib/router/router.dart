@@ -95,8 +95,10 @@ class AppRouter {
                 path: 'detail/:id',
                 parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (context, state) {
-                  return const CustomTransitionPage(
-                    child: EventDetailView(),
+                  return CustomTransitionPage(
+                    child: EventDetailView(
+                      id: state.pathParameters['id'].toString(),
+                    ),
                     transitionsBuilder: useNavChangeTransition,
                   );
                 },
@@ -136,7 +138,7 @@ String? _initialDeepLink;
 String? get initialDeepLink => _initialDeepLink;
 
 String? _handleRedirect(BuildContext context, GoRouterState state) {
-    final a = appLogic;
+  final a = appLogic;
   if (state.uri.path == ScreenPath.splash && !a.isBootStrapComplete) {
     return ScreenPath.splash;
   }

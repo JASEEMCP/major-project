@@ -6,10 +6,11 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.name,
-     this.onTap,
+    this.onTap,
     this.width,
     this.color,
-    this.textColor, this.radius,
+    this.textColor,
+    this.radius,
   });
 
   final String name;
@@ -27,7 +28,7 @@ class CustomButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         color: color ?? context.theme.indigo,
         onPressed: onTap,
-        borderRadius: BorderRadius.circular(radius??8),
+        borderRadius: BorderRadius.circular(radius ?? 8),
         child: Text(
           name,
           style: $style.text.textN14.copyWith(

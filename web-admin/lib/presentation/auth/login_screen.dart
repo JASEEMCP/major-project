@@ -32,6 +32,7 @@ class ScreenLogin extends StatelessWidget {
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
+        tokenCubit.updateToken(pref.token.value);
         appRouter.go(ScreenPath.explore);
       } else {
         apiState = ErrorState();
@@ -88,35 +89,38 @@ class ScreenLogin extends StatelessWidget {
                 ),
                 Gap(inset.sm),
                 ValueListenableBuilder(
-                    valueListenable: _visibilityNotifier,
-                    builder: (context, isVisible, _) {
-                      return CustomTextField(
-                        hint: 'Password',
-                        isObscure: isVisible,
-                        suffix: IconButton(
-                          icon: Icon(
-                            isVisible ? Icons.visibility_off : Icons.visibility,
-                          ),
-                          onPressed: () {
-                            _visibilityNotifier.value = !isVisible;
-                          },
+                  valueListenable: _visibilityNotifier,
+                  builder: (context, isVisible, _) {
+                    return CustomTextField(
+                      hint: 'Password',
+                      isObscure: isVisible,
+                      suffix: IconButton(
+                        icon: Icon(
+                          isVisible ? Icons.visibility_off : Icons.visibility,
                         ),
-                        controller: _textController[1],
-                        validator: (email) {
-                          if (_textController.isItemEmpty(0)) {
-                            return "* Required";
-                          }
-
-                          return null;
+                        onPressed: () {
+                          _visibilityNotifier.value = !isVisible;
                         },
-                      );
-                    }),
+                      ),
+                      controller: _textController[1],
+                      validator: (email) {
+                        if (_textController.isItemEmpty(0)) {
+                          return "* Required";
+                        }
+
+                        return null;
+                      },
+                    );
+                  },
+                ),
                 Gap(inset.xs),
                 Align(
                   alignment: const Alignment(-0.9, 0),
                   child: CustomTextButton(
                     text: 'Forgot Password?',
-                    onTap: () {},
+                    onTap: () {
+                      context.go(ScreenPath.forgotPwd);
+                    },
                   ),
                 ),
                 Gap(inset.sm),

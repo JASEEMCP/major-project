@@ -51,9 +51,7 @@ class EventVerifyView extends StatelessWidget {
                                 name: 'Verify',
                                 color: Colors.green,
                                 radius: 30,
-                                onTap: () {
-                                  
-                                },
+                                onTap: () {},
                               )
                             ],
                           ),

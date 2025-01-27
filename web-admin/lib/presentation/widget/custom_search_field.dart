@@ -43,8 +43,6 @@ class CustomDropDownSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return CustomDropdownMenu<MenuItem>(
       curserColor: Colors.deepPurple,
       validator: validator,
@@ -56,6 +54,7 @@ class CustomDropDownSearch extends StatelessWidget {
       expandedInsets: EdgeInsets.zero,
       width: width ?? 280,
       menuStyle: MenuStyle(
+          alignment: const Alignment(0.45, 1),
           backgroundColor: WidgetStatePropertyAll(context.theme.kWhite),
           surfaceTintColor: WidgetStatePropertyAll(context.theme.kWhite)),
       hintText: hintText,
