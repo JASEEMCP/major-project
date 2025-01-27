@@ -13,6 +13,8 @@ class CustomTextField extends StatelessWidget {
     this.suffix,
     this.inputFormatter,
     this.readOnly,
+    this.onTap,
+    this.maxLine,
   });
   final String hint;
   final String? Function(String?)? validator;
@@ -22,6 +24,8 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffix;
   final List<TextInputFormatter>? inputFormatter;
   final bool? readOnly;
+  final Function()? onTap;
+  final int? maxLine;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +35,14 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         readOnly: readOnly ?? false,
         validator: validator,
+        onTap: onTap,
+        minLines: 1,
+        maxLines: maxLine ?? 1,
         inputFormatters: inputFormatter,
         obscureText: isObscure ?? false,
-        style: $style.text.textSBold12,
+        style: $style.text.textSBold12.copyWith(
+          color: context.theme.indigo,
+        ),
         decoration: InputDecoration(
           suffixIcon: suffix,
           hintText: hint,
