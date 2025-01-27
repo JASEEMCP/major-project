@@ -50,12 +50,15 @@ class CustomDropDownSearch extends StatelessWidget {
         validator: validator,
         onChanged: onChanged,
         enabled: enabled ?? true,
-        textStyle: $style.text.textSBold12,
+        textStyle: $style.text.textSBold12.copyWith(
+          color: context.theme.indigo,
+        ),
         initialSelection: null,
         controller: controller,
         expandedInsets: EdgeInsets.zero,
         width: width ?? 280,
         menuStyle: MenuStyle(
+            alignment: const Alignment(0.45, 1),
             backgroundColor: WidgetStatePropertyAll(context.theme.kWhite),
             surfaceTintColor: WidgetStatePropertyAll(context.theme.kWhite)),
         hintText: hintText,

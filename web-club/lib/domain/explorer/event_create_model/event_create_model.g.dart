@@ -16,9 +16,9 @@ EventCreateModel _$EventCreateModelFromJson(Map<String, dynamic> json) =>
       eventFee: (json['event_fee'] as num?)?.toInt(),
       description: json['description'] as String?,
       category: json['category'] as String?,
-      sessions: json['sessions'] == null
-          ? null
-          : Sessions.fromJson(json['sessions'] as Map<String, dynamic>),
+      sessions: (json['sessions'] as List<dynamic>?)
+          ?.map((e) => Sessions.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$EventCreateModelToJson(EventCreateModel instance) =>

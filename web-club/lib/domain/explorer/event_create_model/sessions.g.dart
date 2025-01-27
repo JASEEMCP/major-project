@@ -11,7 +11,7 @@ Sessions _$SessionsFromJson(Map<String, dynamic> json) => Sessions(
       eventStartTime: json['event_start_time'] as String?,
       eventEndTime: json['event_end_time'] as String?,
       facultyName: json['faculty_name'] as String?,
-      venue: json['Venue'] as String?,
+      venue: json['venue'] as String?,
     );
 
 Map<String, dynamic> _$SessionsToJson(Sessions instance) => <String, dynamic>{
@@ -19,5 +19,5 @@ Map<String, dynamic> _$SessionsToJson(Sessions instance) => <String, dynamic>{
       'event_start_time': instance.eventStartTime,
       'event_end_time': instance.eventEndTime,
       'faculty_name': instance.facultyName,
-      'Venue': instance.venue,
+      'venue': instance.venue,
     };

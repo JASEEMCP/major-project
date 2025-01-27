@@ -20,7 +20,7 @@ class EventCreateModel {
   int? eventFee;
   String? description;
   String? category;
-  Sessions? sessions;
+  List<Sessions>? sessions;
 
   EventCreateModel({
     this.eventName,
@@ -49,7 +49,7 @@ class EventCreateModel {
     int? eventFee,
     String? description,
     String? category,
-    Sessions? sessions,
+    List<Sessions>? sessions,
   }) {
     return EventCreateModel(
       eventName: eventName ?? this.eventName,

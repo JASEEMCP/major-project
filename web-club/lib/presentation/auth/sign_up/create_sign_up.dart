@@ -1,4 +1,5 @@
 import 'package:app/infrastructure/env/env.dart';
+import 'package:app/presentation/auth/sign_up/sign_up_screen.dart';
 import 'package:app/presentation/widget/custom_elevated_button.dart';
 import 'package:app/presentation/widget/custom_text_field.dart';
 import 'package:app/resource/utils/common_lib.dart';
@@ -24,7 +25,7 @@ class _ForgotPwdViewState extends State<CreateSignUp> {
     if (_formKey.currentState!.validate()) {
       try {
         _isLoading.value = true;
-        final response = await dioClient.dio.post(
+        final response = await dioCookie.dio.post(
           '${Env().apiBaseUrl}/home/signup/password/',
           data: {
             'password': _pwdController[2].text.trim(),
@@ -34,7 +35,6 @@ class _ForgotPwdViewState extends State<CreateSignUp> {
         if (response.statusCode == 200) {
           _isLoading.value = false;
           if (ctx.mounted) {
-            
             ctx.go(ScreenPath.signupProfile);
           }
         } else {

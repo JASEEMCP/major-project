@@ -1,5 +1,3 @@
-
-
 import 'package:app/resource/utils/common_lib.dart';
 
 class ProfileSubmission extends StatelessWidget {

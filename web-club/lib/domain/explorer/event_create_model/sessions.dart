@@ -11,7 +11,7 @@ class Sessions {
   String? eventEndTime;
   @JsonKey(name: 'faculty_name')
   String? facultyName;
-  @JsonKey(name: 'Venue')
+  @JsonKey(name: 'venue')
   String? venue;
 
   Sessions({

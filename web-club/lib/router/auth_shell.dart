@@ -55,8 +55,6 @@ class AuthShell {
           },
         ),
 
-
-
         // Signup
         GoRoute(
           parentNavigatorKey: _authNavigatorKey,
@@ -73,7 +71,7 @@ class AuthShell {
           parentNavigatorKey: _authNavigatorKey,
           path: ScreenPath.signupPwd,
           pageBuilder: (context, state) {
-            return  const CustomTransitionPage(
+            return const CustomTransitionPage(
               transitionsBuilder: useNavChangeTransition,
               child: CreateSignUp(),
             );
@@ -84,7 +82,7 @@ class AuthShell {
           parentNavigatorKey: _authNavigatorKey,
           path: ScreenPath.signupProfile,
           pageBuilder: (context, state) {
-            return  const CustomTransitionPage(
+            return const CustomTransitionPage(
               transitionsBuilder: useNavChangeTransition,
               child: ProfileSubmission(),
             );

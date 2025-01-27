@@ -139,7 +139,6 @@ class _ProfileViewState extends State<ProfileView> {
                     readOnly: true,
                     controller: _textController[2],
                   ),
-                 
                 ],
               ),
               Gap(inset.sm),

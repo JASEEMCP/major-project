@@ -9,7 +9,6 @@ class ScreenPath {
   static const signup = '/signup';
   static const signupPwd = '/signup-pwd';
   static const signupProfile = '/signup-profile';
-  
 
   /// Main Routes
 

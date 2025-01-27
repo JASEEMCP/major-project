@@ -10,6 +10,22 @@ import 'package:dio/dio.dart';
 final ValueNotifier<bool> _isLoading = ValueNotifier(false);
 List<MyEventList> _myEventsList = [];
 
+refreshList() async {
+  try {
+    final response =
+        await dioClient.dio.get('${Env().apiBaseUrl}home/club/my-events-list/');
+    if (response.statusCode == 200) {
+      _myEventsList =
+          (response.data as List).map((e) => MyEventList.fromJson(e)).toList();
+      _isLoading.value = true;
+      _isLoading.value = false;
+    }
+  } on DioException catch (_) {
+    _isLoading.value = true;
+    _isLoading.value = false;
+  }
+}
+
 class HostEventView extends StatefulWidget {
   const HostEventView({super.key});
 
