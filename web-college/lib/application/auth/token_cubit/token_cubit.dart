@@ -42,6 +42,9 @@ class TokenCubit extends Cubit<TokenState> {
       isProfileCreated: false,
       name: null,
       userType: null,
+      profileId: null,
+      isVerified: null,
+      
     );
     emit(const TokenState.initial());
   }
