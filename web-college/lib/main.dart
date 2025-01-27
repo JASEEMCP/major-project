@@ -1,3 +1,4 @@
+import 'package:app/resource/api/dio_client.dart';
 import 'package:flutter/material.dart';
 import 'package:app/domain/app_logic.dart';
 import 'package:app/presentation/root_app.dart';
@@ -6,9 +7,9 @@ import 'package:app/resource/injectable.dart';
 import 'package:app/router/router.dart';
 import 'package:app/styles/styles.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   //Configuring injection
   await configureInjection();
 
@@ -18,8 +19,9 @@ Future<void> main() async{
   await appLogic.bootstrap();
 }
 
-
 AppStyle get $style => RootApp.style;
 final appRouter = AppRouter.router;
 PrefInfo get pref => getIt<PrefInfo>();
 AppLogic get appLogic => getIt<AppLogic>();
+
+DioClient get dioClient => getIt<DioClient>();

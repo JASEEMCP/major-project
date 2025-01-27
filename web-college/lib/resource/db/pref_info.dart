@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:app/domain/auth/token.dart';
 import 'package:app/resource/db/load_and_save.dart';
 
-
 @LazySingleton()
 class PrefInfo with LoadAndSaveMixin {
   late final token = ValueNotifier<Token>(
@@ -13,7 +12,6 @@ class PrefInfo with LoadAndSaveMixin {
       isProfileCreated: false,
       name: null,
       userType: null,
-      
     ),
   )..addListener(save);
 
@@ -24,7 +22,6 @@ class PrefInfo with LoadAndSaveMixin {
     token.value.isProfileCreated = data['is_profile_create'] ?? false;
     token.value.name = data['name'] ?? '';
     token.value.userType = data['user_type'] ?? '';
-   
   }
 
   @override
@@ -38,9 +35,6 @@ class PrefInfo with LoadAndSaveMixin {
       'name': token.value.name,
       'user_type': token.value.userType,
       'is_profile_created': token.value.isProfileCreated,
-      
     };
   }
-
-  
 }

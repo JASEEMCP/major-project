@@ -4,6 +4,8 @@ class ScreenPath {
   /// Auth path
   static const splash = '/';
   static const login = '/login';
+  static const resetPwd = '/reset-pwd';
+  static const forgotPwd = '/forgot-pwd';
 
   /// Main Routes
   static const staff = '/staff';
@@ -11,14 +13,9 @@ class ScreenPath {
   static const profile = '/profile';
   static const explore = '/explore';
 
-
   /// Sub-Routes
-  
-  static  detail(String id) => _appendIdIntoCurrentPath('/detail/$id');
 
-
-
-  
+  static detail(String id) => _appendIdIntoCurrentPath('/detail/$id');
 
   ///Appending path
   static _appendIdIntoCurrentPath(String path) {

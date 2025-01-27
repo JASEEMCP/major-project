@@ -59,12 +59,11 @@ class ExploreView extends StatelessWidget {
       ),
     );
   }
-
-  
 }
+
 BoxDecoration applyBorderRadius(BuildContext context) {
-    return BoxDecoration(
-      color: context.theme.kWhite,
-      borderRadius: BorderRadius.circular(10),
-    );
-  }
+  return BoxDecoration(
+    color: context.theme.kWhite,
+    borderRadius: BorderRadius.circular(10),
+  );
+}

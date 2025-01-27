@@ -18,11 +18,11 @@ class AppLogic {
 
       ///Flagging bootstrap
       isBootStrapComplete = true;
-      // if (pref.token.value.isProfileCreated ?? false) {
-      //   appRouter.go(ScreenPath.explore);
-      // } else {
-      //   appRouter.go(ScreenPath.login);
-      // }
+      if (pref.token.value.isProfileCreated ?? false) {
+        appRouter.go(ScreenPath.explore);
+      } else {
+        appRouter.go(ScreenPath.login);
+      }
 
       //appRouter.go(ScreenPath.explore);
     } catch (e) {

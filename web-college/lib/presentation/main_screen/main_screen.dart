@@ -2,7 +2,6 @@ import 'package:app/presentation/main_screen/layout/desktop_layout.dart';
 import 'package:flutter/widgets.dart';
 import 'package:app/styles/responsive_layout.dart';
 
-
 ValueNotifier<int> tabChangeNotifier = ValueNotifier<int>(0);
 
 class ScreenMain extends StatefulWidget {

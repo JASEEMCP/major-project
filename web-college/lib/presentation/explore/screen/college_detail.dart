@@ -18,7 +18,7 @@ class CollegeDetailView extends StatelessWidget {
           children: [
             const Row(
               children: [
-                 CustomText(
+                CustomText(
                   txt: 'College Name',
                   fontSize: 20,
                 ),
