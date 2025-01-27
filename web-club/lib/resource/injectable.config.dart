@@ -30,8 +30,8 @@ _i174.GetIt init(
   );
   gh.lazySingleton<_i98.TokenCubit>(() => _i98.TokenCubit());
   gh.lazySingleton<_i509.ThemeCubit>(() => _i509.ThemeCubit());
-  gh.lazySingleton<_i659.AppLogic>(() => _i659.AppLogic());
   gh.lazySingleton<_i29.PrefInfo>(() => _i29.PrefInfo());
+  gh.lazySingleton<_i659.AppLogic>(() => _i659.AppLogic());
   gh.lazySingleton<_i891.DioClient>(
       () => _i891.DioClient(gh<_i98.TokenCubit>()));
   return getIt;

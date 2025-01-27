@@ -4,6 +4,8 @@ class ScreenPath {
   /// Auth path
   static const splash = '/';
   static const login = '/login';
+    static const resetPwd = '/reset-pwd';
+  static const forgotPwd = '/forgot-pwd';
 
   /// Main Routes
   

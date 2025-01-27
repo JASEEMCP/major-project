@@ -12,6 +12,8 @@ Token _$TokenFromJson(Map<String, dynamic> json) => Token(
       isProfileCreated: json['is_profile_created'] as bool?,
       name: json['name'] as String?,
       userType: json['user_type'] as String?,
+      isVerified: json['is_verified'] as bool?,
+      profileId: json['profile_id'] as String?,
     );
 
 Map<String, dynamic> _$TokenToJson(Token instance) => <String, dynamic>{
@@ -20,4 +22,6 @@ Map<String, dynamic> _$TokenToJson(Token instance) => <String, dynamic>{
       'is_profile_created': instance.isProfileCreated,
       'user_type': instance.userType,
       'name': instance.name,
+      'is_verified': instance.isVerified,
+      'profile_id': instance.profileId,
     };

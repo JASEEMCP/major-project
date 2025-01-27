@@ -14,10 +14,16 @@ class AppLogic {
       await pref.load();
 
       /// Initializing token state
-      //await tokenCubit.initTokenState();
+      await tokenCubit.initTokenState();
 
       ///Flagging bootstrap
       isBootStrapComplete = true;
+      if (pref.token.value.isProfileCreated ?? false) {
+        appRouter.go(ScreenPath.explore);
+      } else {
+        appRouter.go(ScreenPath.login);
+      }
+
       //appRouter.go(ScreenPath.explore);
     } catch (e) {
       //appRouter.go(ScreenPath.login);

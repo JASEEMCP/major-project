@@ -1,5 +1,6 @@
 import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -10,6 +11,8 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.isObscure,
     this.suffix,
+    this.inputFormatter,
+    this.readOnly,
   });
   final String hint;
   final String? Function(String?)? validator;
@@ -17,6 +20,8 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final bool? isObscure;
   final Widget? suffix;
+  final List<TextInputFormatter>? inputFormatter;
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,9 @@ class CustomTextField extends StatelessWidget {
       width: width ?? 280,
       child: TextFormField(
         controller: controller,
+        readOnly: readOnly ?? false,
         validator: validator,
+        inputFormatters: inputFormatter,
         obscureText: isObscure ?? false,
         style: $style.text.textSBold12,
         decoration: InputDecoration(
@@ -32,9 +39,7 @@ class CustomTextField extends StatelessWidget {
           hintText: hint,
           isDense: true,
           filled: true,
-          hintStyle: $style.text.textN12.copyWith(
-            color: context.theme.kBlack.withValues(alpha: 0.5),
-          ),
+          hintStyle: $style.text.textSBold12,
           fillColor: context.theme.kWhite,
           border: _applyBorderStyle(),
           enabledBorder: _applyBorderStyle(),
@@ -52,3 +57,5 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
+
+

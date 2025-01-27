@@ -15,10 +15,10 @@ extension BuildContextX on BuildContext {
   bool get isTablet => ResponsiveLayout.isTablet(this);
   bool get isDesktop => ResponsiveLayout.isDesktop(this);
 
-  void showCustomSnackBar(String content) =>
-      ScaffoldMessenger.of(this).showSnackBar(showSnackBar(content));
-  
+  void showCustomSnackBar(String content, [Color? color]) =>
+      ScaffoldMessenger.of(this).showSnackBar(showSnackBar(content, color));
 }
+
 /// String
 extension StringStyling on String {
   String toCapitalized() =>
@@ -29,7 +29,7 @@ extension StringStyling on String {
       .join(' ');
 }
 
-SnackBar showSnackBar(String content) {
+SnackBar showSnackBar(String content, [Color? color]) {
   return SnackBar(
     width: 380,
     dismissDirection: DismissDirection.down,
@@ -43,7 +43,7 @@ SnackBar showSnackBar(String content) {
         style: $style.text.textBold14,
       ),
     ),
-    backgroundColor: const Color.fromARGB(255, 144, 143, 145),
+    backgroundColor: color ?? const Color.fromARGB(255, 144, 143, 145),
     behavior: SnackBarBehavior.floating,
   );
 }
