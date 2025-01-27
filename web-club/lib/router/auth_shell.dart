@@ -1,6 +1,8 @@
 import 'package:app/presentation/auth/forgot_pwd/forgot_pwd_view.dart';
 import 'package:app/presentation/auth/forgot_pwd/reset_pwd_view.dart';
 import 'package:app/presentation/auth/login_screen.dart';
+import 'package:app/presentation/auth/sign_up/profile_submission.dart';
+import 'package:app/presentation/auth/sign_up/sign_up_screen.dart';
 import 'package:app/presentation/main_screen/auth_main.dart';
 import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/router/transitions.dart';
@@ -48,6 +50,42 @@ class AuthShell {
             return const CustomTransitionPage(
               transitionsBuilder: useNavChangeTransition,
               child: ResetPwdView(),
+            );
+          },
+        ),
+
+
+
+        // Signup
+        GoRoute(
+          parentNavigatorKey: _authNavigatorKey,
+          path: ScreenPath.signup,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              transitionsBuilder: useNavChangeTransition,
+              child: SignUpScreen(),
+            );
+          },
+        ),
+
+        GoRoute(
+          parentNavigatorKey: _authNavigatorKey,
+          path: ScreenPath.signupPwd,
+          pageBuilder: (context, state) {
+            return  const CustomTransitionPage(
+              transitionsBuilder: useNavChangeTransition,
+              child: ProfileSubmission(),
+            );
+          },
+        ),
+        // Reset PWd
+        GoRoute(
+          parentNavigatorKey: _authNavigatorKey,
+          path: ScreenPath.signupProfile,
+          pageBuilder: (context, state) {
+            return  const CustomTransitionPage(
+              transitionsBuilder: useNavChangeTransition,
+              child: ProfileSubmission(),
             );
           },
         ),
