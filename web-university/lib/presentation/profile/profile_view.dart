@@ -39,6 +39,9 @@ class _ProfileViewState extends State<ProfileView> {
         );
         if (response.statusCode == 200) {
           _isChanging.value = false;
+          for (TextEditingController controller in _pwdController) {
+            controller.clear();
+          }
           if (ctx.mounted) {
             ctx.showCustomSnackBar(
                 'Password changed successfully', Colors.green);

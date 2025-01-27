@@ -1,5 +1,3 @@
-
-
 import 'package:app/domain/college_detail_model/college_detail_model.dart';
 import 'package:app/domain/college_detail_model/event_list.dart';
 import 'package:app/infrastructure/env/env.dart';
