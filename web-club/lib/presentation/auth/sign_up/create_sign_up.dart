@@ -34,9 +34,8 @@ class _ForgotPwdViewState extends State<CreateSignUp> {
         if (response.statusCode == 200) {
           _isLoading.value = false;
           if (ctx.mounted) {
-            ctx.showCustomSnackBar(
-                'Password changed successfully', Colors.green);
-            ctx.go(ScreenPath.login);
+            
+            ctx.go(ScreenPath.signupProfile);
           }
         } else {
           _isLoading.value = false;

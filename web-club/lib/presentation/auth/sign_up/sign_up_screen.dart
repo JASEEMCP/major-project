@@ -73,7 +73,7 @@ class SignUpScreen extends StatelessWidget {
         if (context.mounted) {
           context.showCustomSnackBar(
               response.data['message'] ?? 'An error occurred', Colors.green);
-          context.go(ScreenPath.resetPwd);
+          context.go(ScreenPath.signupPwd);
         }
       } else {
         _isSending.value = false;

@@ -1,6 +1,7 @@
 import 'package:app/presentation/auth/forgot_pwd/forgot_pwd_view.dart';
 import 'package:app/presentation/auth/forgot_pwd/reset_pwd_view.dart';
 import 'package:app/presentation/auth/login_screen.dart';
+import 'package:app/presentation/auth/sign_up/create_sign_up.dart';
 import 'package:app/presentation/auth/sign_up/profile_submission.dart';
 import 'package:app/presentation/auth/sign_up/sign_up_screen.dart';
 import 'package:app/presentation/main_screen/auth_main.dart';
@@ -74,7 +75,7 @@ class AuthShell {
           pageBuilder: (context, state) {
             return  const CustomTransitionPage(
               transitionsBuilder: useNavChangeTransition,
-              child: ProfileSubmission(),
+              child: CreateSignUp(),
             );
           },
         ),
