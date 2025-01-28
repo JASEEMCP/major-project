@@ -29,7 +29,8 @@ class _AddStaffViewState extends State<AddStaffView> {
 
   _fetchDepartmentList() async {
     try {
-      if (_departmentListModel.isNotEmpty) return;
+      
+      if (_departmentListModel.isNotEmpty)return;
 
       final response = await dioClient.dio
           .get('${Env().apiBaseUrl}home/college/department-list/');
@@ -47,7 +48,12 @@ class _AddStaffViewState extends State<AddStaffView> {
 
   _fetchStaffList() async {
     try {
-      if (_staffList.isNotEmpty) return;
+      if (_staffList.isNotEmpty) {
+        _deptMenu = _departmentListModel
+            .map((e) => MenuItem(e.departmentId.toString(), e.name.toString()))
+            .toList();
+            return;
+      }
       _isLoading.value = true;
 
       final response = await dioClient.dio
