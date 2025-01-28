@@ -6,6 +6,9 @@ class ScreenPath {
   static const login = '/login';
   static const forgotPwd = '/forgotPwd';
   static const resetPwd = '/resetPwd';
+  static const signup = '/signup';
+  static const signupPwd = '/signup-pwd';
+  static const signupProfile = '/signup-profile';
 
 
   /// Main routes

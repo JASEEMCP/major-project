@@ -48,7 +48,6 @@ class _CollegeValidationState extends State<CollegeValidation> {
         _collegeList = data.map((e) => CollegeListModel.fromJson(e)).toList();
         _isLoading.value = true;
         _isLoading.value = false;
-
       }
     } catch (e) {
       return;
@@ -57,7 +56,7 @@ class _CollegeValidationState extends State<CollegeValidation> {
 
   final ValueNotifier<bool> _isVerifying = ValueNotifier(false);
 
-  _verifyCollege(String collegeId,BuildContext ctx) async {
+  _verifyCollege(String collegeId, BuildContext ctx) async {
     try {
       _isVerifying.value = true;
       final response = await dioClient.dio.put(
@@ -81,7 +80,8 @@ class _CollegeValidationState extends State<CollegeValidation> {
       }
     } on DioException catch (e) {
       if (ctx.mounted) {
-        ctx.showCustomSnackBar(e.response?.data['message'] ?? 'An error occurred');
+        ctx.showCustomSnackBar(
+            e.response?.data['message'] ?? 'An error occurred');
       }
       _isVerifying.value = false;
     }
@@ -92,6 +92,7 @@ class _CollegeValidationState extends State<CollegeValidation> {
     super.initState();
     _fetchColleges();
   }
+  int currentIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -154,25 +155,27 @@ class _CollegeValidationState extends State<CollegeValidation> {
                                 ),
                                 Gap(inset.sm),
                                 ValueListenableBuilder(
-                                    valueListenable: _isVerifying,
-                                    builder: (context, isVerifying, _) {
-                                      return CustomButton(
-                                        width: 80,
-                                        name: isVerifying
-                                            ? 'Verifying'
-                                            : 'Verify',
-                                        radius: 30,
-                                        color: Colors.green,
-                                        onTap: isVerifying
-                                            ? null
-                                            : () {
-                                                _verifyCollege(
-                                                    _collegeList[index]
-                                                            .collegeId ??
-                                                        '',context);
-                                              },
-                                      );
-                                    })
+                                  valueListenable: _isVerifying,
+                                  builder: (context, isVerifying, _) {
+                                    return CustomButton(
+                                      width: 80,
+                                      name:
+                                           isVerifying && currentIndex==index ? 'Verifying' : 'Verify',
+                                      radius: 30,
+                                      color: Colors.green,
+                                      onTap: isVerifying && currentIndex==index
+                                          ? null
+                                          : () {
+                                            currentIndex = index;
+                                              _verifyCollege(
+                                                  _collegeList[index]
+                                                          .collegeId ??
+                                                      '',
+                                                  context);
+                                            },
+                                    );
+                                  },
+                                )
                               ],
                             ),
                           );

@@ -141,7 +141,9 @@ class ScreenLogin extends StatelessWidget {
                 Center(
                   child: CustomTextButton(
                     text: 'Create Account?',
-                    onTap: () {},
+                    onTap: () {
+                      context.go(ScreenPath.signup);
+                    },
                   ),
                 ),
               ],
