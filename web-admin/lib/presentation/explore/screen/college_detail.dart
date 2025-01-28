@@ -1,4 +1,5 @@
-import 'package:app/domain/explorer/explore_data_model/explore_data_model.dart';
+import 'package:app/domain/explorer/explorer_model/club.dart';
+import 'package:app/domain/explorer/explorer_model/explorer_model.dart';
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/explore/explore_view.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
@@ -7,7 +8,7 @@ import 'package:app/resource/utils/extensions.dart';
 import 'package:dio/dio.dart';
 
 final ValueNotifier<bool> _isLoading = ValueNotifier(false);
-List<ExploreDataModel> _explore = [];
+ExplorerModel? _explore;
 
 class CollegeDetailView extends StatefulWidget {
   const CollegeDetailView({super.key});
@@ -19,15 +20,13 @@ class CollegeDetailView extends StatefulWidget {
 class _CollegeDetailViewState extends State<CollegeDetailView> {
   _fetchExploreData() async {
     try {
-      if (_explore.isNotEmpty) return;
+      if (_explore != null) return;
       _isLoading.value = true;
 
       final response = await dioClient.dio
           .get('${Env().apiBaseUrl}home/admin/data-explore/');
       if (response.statusCode == 200) {
-        _explore = (response.data as List)
-            .map((e) => ExploreDataModel.fromJson(e))
-            .toList();
+        _explore = ExplorerModel.fromJson(response.data);
         _isLoading.value = false;
       }
     } on DioException catch (_) {
@@ -52,7 +51,7 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
             child: CircularProgressIndicator(),
           );
         }
-        if (_explore.isEmpty) {
+        if (_explore == null) {
           return const Center(child: CustomText(txt: 'No data found'));
         }
         return SingleChildScrollView(
@@ -74,34 +73,12 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    rowTitleText('Club Name', pref.token.value.name ?? 'N/A'),
-                    Gap(inset.sm),
+                    //rowTitleText('Club Name', pref.token.value.name ?? 'N/A'),
+                    //Gap(inset.sm),
                     BuildEventHistory(
-                      data: _explore,
+                      data: _explore?.clubs ?? [],
                     ),
                   ],
-                ),
-                ListView.separated(
-                  separatorBuilder: (context, index) => Gap(inset.xs),
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (ctx, index) {
-                    return Container(
-                      padding: EdgeInsets.all(inset.sm),
-                      decoration: applyBorderRadius(context),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CustomText(
-                            txt: 'IEDC',
-                            color: Colors.green,
-                          ),
-                          rowTitleText('Authorizer', 'Rahul'),
-                        ],
-                      ),
-                    );
-                  },
                 ),
               ],
             ),
@@ -118,7 +95,7 @@ class BuildEventHistory extends StatelessWidget {
     required this.data,
   });
 
-  final List<ExploreDataModel> data;
+  final List<Club> data;
 
   @override
   Widget build(BuildContext context) {
@@ -136,41 +113,29 @@ class BuildEventHistory extends StatelessWidget {
             spacing: inset.xs,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Icon(Icons.calendar_month),
                   Gap(inset.xs),
-                  Expanded(
-                    child: CustomText(
-                      txt: data[index].eventName ?? 'N/A',
-                      color: context.theme.indigo,
-                      fontSize: 20,
-                    ),
-                  ),
-                  rowTitleText(
-                    'Date of Event',
-                    data[index].eventPostDate ?? 'N/A',
+                  Column(
+                    children: [
+                      CustomText(
+                        txt: data[index].authorityName ?? 'N/A',
+                        color: context.theme.indigo,
+                        fontSize: 20,
+                      ),
+                    ],
                   ),
                 ],
               ),
               Gap(inset.xs),
-              rowTitleText('Fee', 'INR ${data[index].eventFee ?? 'N/A'}'),
-              rowTitleText('Slot Count', data[index].eventSlotCount.toString()),
               rowTitleText(
-                'Category',
-                data[index].category ?? 'N/A',
-              ),
-              rowTitleText('Credit Score', data[index].credit.toString()),
-              rowTitleText(
-                'Expiry Date',
-                data[index].eventExpiryDate ?? 'N/A',
-              ),
-              rowTitleText(
-                'Description',
-                data[index].description ?? 'N/A',
+                'Author',
+                data[index].authorName ?? 'N/A',
               ),
               Gap(inset.sm),
               ListView.separated(
-                itemCount: _explore[index].students?.length ?? 0,
+                itemCount: data[index].events?.length ?? 0,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (context, index) => Gap(inset.xs),
@@ -186,39 +151,16 @@ class BuildEventHistory extends StatelessWidget {
                           spacing: inset.xs,
                           children: [
                             CustomText(
-                              txt: _explore[index]
-                                      .students?[indexS]
-                                      .studentName ??
+                              txt: data[index].events?[indexS].eventName ??
                                   'N/A',
                               color: context.theme.indigo,
                             ),
-                            rowTitleText(
-                                'Academic Year',
-                                _explore[index]
-                                        .students?[indexS]
-                                        .academicYear ??
-                                    'N/A'),
+                            rowTitleText('Event Fee',
+                                "${data[index].events?[indexS].eventFee ?? 'N/A'}"),
                           ],
                         ),
-                        rowTitleText(
-                            'Branch',
-                            _explore[index].students?[indexS].department ??
-                                'N/A'),
-                        Row(
-                          children: [
-                            rowTitleText('Attended', ''),
-                            (_explore[index].students?[indexS].isAttended ??
-                                    false)
-                                ? const Icon(
-                                    Icons.verified,
-                                    color: Colors.green,
-                                  )
-                                : const Icon(
-                                    Icons.close,
-                                    color: Colors.red,
-                                  ),
-                          ],
-                        ),
+                        rowTitleText('Date of Event',
+                            data[index].events?[indexS].eventDate ?? 'N/A'),
                       ],
                     ),
                   );

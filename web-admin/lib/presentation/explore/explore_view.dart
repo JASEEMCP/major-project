@@ -67,4 +67,3 @@ BoxDecoration applyBorderRadius(BuildContext context) {
     borderRadius: BorderRadius.circular(10),
   );
 }
-

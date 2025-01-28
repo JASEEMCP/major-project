@@ -1,4 +1,3 @@
-
 import 'package:app/domain/explorer/admin_profile_model/admin_profile_model.dart';
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/widget/custom_elevated_button.dart';
@@ -65,8 +64,7 @@ class _ProfileViewState extends State<ProfileView> {
   _fetchProfile() async {
     try {
       if (_universityProfileModel != null) {
-        _textController[0].text =
-            _universityProfileModel?.email ?? 'N/A';
+        _textController[0].text = _universityProfileModel?.email ?? 'N/A';
         _textController[1].text = _universityProfileModel?.phoneNumber ?? 'N/A';
         _textController[2].text = _universityProfileModel?.gender ?? 'N/A';
         return;
@@ -78,8 +76,7 @@ class _ProfileViewState extends State<ProfileView> {
         _isLoading.value = false;
         _universityProfileModel = AdminProfileModel.fromJson(response.data);
 
-       _textController[0].text =
-            _universityProfileModel?.email ?? 'N/A';
+        _textController[0].text = _universityProfileModel?.email ?? 'N/A';
         _textController[1].text = _universityProfileModel?.phoneNumber ?? 'N/A';
         _textController[2].text = _universityProfileModel?.gender ?? 'N/A';
       }
@@ -101,7 +98,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     final inset = $style.insets;
-   
+
     return ValueListenableBuilder(
       valueListenable: _isLoading,
       builder: (context, isLoading, _) {

@@ -1,4 +1,3 @@
-
 import 'package:app/domain/explorer/my_event_list/my_event_list.dart';
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/widget/custom_circle_btn.dart';
@@ -13,8 +12,8 @@ List<MyEventList> _myEventsList = [];
 
 refreshList() async {
   try {
-    final response =
-        await dioClient.dio.get('${Env().apiBaseUrl}home/admin/my-events-list/');
+    final response = await dioClient.dio
+        .get('${Env().apiBaseUrl}home/admin/my-events-list/');
     if (response.statusCode == 200) {
       _myEventsList =
           (response.data as List).map((e) => MyEventList.fromJson(e)).toList();
