@@ -125,7 +125,7 @@ class SignUpScreen extends StatelessWidget {
                     children: [
                       CustomTextField(
                         readOnly: isSended,
-                        hint: 'Club Name',
+                        hint: 'Student Name',
                         validator: (email) {
                           if (_textController.isItemEmpty(2)) {
                             return "* Required";
@@ -137,7 +137,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       CustomTextField(
                         readOnly: isSended,
-                        hint: 'Club email',
+                        hint: 'Student email',
                         validator: (email) {
                           if (_textController.isItemEmpty(0)) {
                             return "* Required";
