@@ -43,58 +43,55 @@ class CustomDropDownSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return CustomDropdownMenu<MenuItem>(
+      curserColor: Colors.deepPurple,
+      validator: validator,
+      onChanged: onChanged,
+      enabled: enabled ?? true,
+      textStyle: $style.text.textSBold12.copyWith(
+        color: context.theme.indigo,
+      ),
+      initialSelection: null,
+      controller: controller,
+      expandedInsets: EdgeInsets.zero,
       width: width ?? 280,
-      child: CustomDropdownMenu<MenuItem>(
-        curserColor: Colors.deepPurple,
-        validator: validator,
-        onChanged: onChanged,
-        enabled: enabled ?? true,
-        textStyle: $style.text.textSBold12.copyWith(
-          color: context.theme.indigo,
-        ),
-        initialSelection: null,
-        controller: controller,
-        expandedInsets: EdgeInsets.zero,
-        width: width ?? 280,
-        menuStyle: MenuStyle(
-            alignment: const Alignment(0.45, 1),
-            backgroundColor: WidgetStatePropertyAll(context.theme.kWhite),
-            surfaceTintColor: WidgetStatePropertyAll(context.theme.kWhite)),
-        hintText: hintText,
-        requestFocusOnTap: enableController ?? true,
-        enableFilter: enableFilter ?? false,
-        selectedTrailingIcon: const Icon(
-          Icons.arrow_drop_up,
-        ),
-        menuHeight: 200,
-        trailingIcon: const Icon(
-          Icons.arrow_drop_down_outlined,
-        ),
-        onSelected: onSelect,
-        dropdownMenuEntries:
-            menu.map<DropdownMenuEntry<MenuItem>>((MenuItem menu) {
-          return DropdownMenuEntry<MenuItem>(
-            value: menu,
-            label: menu.label,
-            style: TextButton.styleFrom(
-              foregroundColor: context.theme.kBlack.withOpacity(0.7),
-              textStyle: $style.text.textBold12.copyWith(),
-            ),
-          );
-        }).toList(),
-        inputDecorationTheme: InputDecorationTheme(
-          errorMaxLines: 3,
-          filled: true,
-          isDense: true,
-          fillColor: context.theme.kWhite,
-          hintStyle: $style.text.textSBold12,
-          disabledBorder: _applyBorderStyle(),
-          border: _applyBorderStyle(),
-          enabledBorder: _applyBorderStyle(),
-          focusedBorder: _applyBorderStyle(),
-          errorBorder: _applyBorderStyle(),
-        ),
+      menuStyle: MenuStyle(
+          //alignment: const Alignment(0.45, 1),
+          backgroundColor: WidgetStatePropertyAll(context.theme.kWhite),
+          surfaceTintColor: WidgetStatePropertyAll(context.theme.kWhite)),
+      hintText: hintText,
+      requestFocusOnTap: enableController ?? true,
+      enableFilter: enableFilter ?? false,
+      selectedTrailingIcon: const Icon(
+        Icons.arrow_drop_up,
+      ),
+      menuHeight: 200,
+      trailingIcon: const Icon(
+        Icons.arrow_drop_down_outlined,
+      ),
+      onSelected: onSelect,
+      dropdownMenuEntries:
+          menu.map<DropdownMenuEntry<MenuItem>>((MenuItem menu) {
+        return DropdownMenuEntry<MenuItem>(
+          value: menu,
+          label: menu.label,
+          style: TextButton.styleFrom(
+            foregroundColor: context.theme.kBlack.withOpacity(0.7),
+            textStyle: $style.text.textBold12.copyWith(),
+          ),
+        );
+      }).toList(),
+      inputDecorationTheme: InputDecorationTheme(
+        errorMaxLines: 3,
+        filled: true,
+        isDense: true,
+        fillColor: context.theme.kWhite,
+        hintStyle: $style.text.textSBold12,
+        disabledBorder: _applyBorderStyle(),
+        border: _applyBorderStyle(),
+        enabledBorder: _applyBorderStyle(),
+        focusedBorder: _applyBorderStyle(),
+        errorBorder: _applyBorderStyle(),
       ),
     );
   }

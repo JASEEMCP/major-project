@@ -42,14 +42,14 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
           spacing: inset.xs,
           children: [
             Gap(inset.lg),
-            Align(
-              alignment: const Alignment(-0.35, 0),
-              child: Text(
-                'Complete\nUniversity Profile',
-                textAlign: TextAlign.left,
-                style: $style.text.textEB26.copyWith(),
-              ),
-            ),
+            // Align(
+            //   alignment: const Alignment(-0.35, 0),
+            //   child: Text(
+            //     'Complete\nUniversity Profile',
+            //     textAlign: TextAlign.left,
+            //     style: $style.text.textEB26.copyWith(),
+            //   ),
+            // ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -58,8 +58,14 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
                 Form(
                   key: _formKey,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: inset.sm,
                     children: [
+                      Text(
+                        'Complete\nUniversity Profile',
+                        textAlign: TextAlign.left,
+                        style: $style.text.textEB26.copyWith(),
+                      ),
                       Gap(inset.sm),
                       // CustomTextField(
                       //   readOnly: true,
@@ -137,7 +143,7 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Gap(inset.xs),
+                    const Gap(100),
                     const CustomText(txt: 'Add Category'),
                     Gap(inset.xxs),
                     Form(
