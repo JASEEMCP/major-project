@@ -89,7 +89,6 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
                   Column(
                     spacing: inset.xs,
                     children: [
-                      
                       rowTitleText(
                           'Short Name', _collegeDetail?.shortName ?? 'N/A'),
                       rowTitleText('Address', _collegeDetail?.address ?? 'N/A'),

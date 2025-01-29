@@ -24,7 +24,6 @@ class TokenCubit extends Cubit<TokenState> {
       if (!isExpired && isProfileCompleted) {
         emit(TokenState.authorized(pref.token.value));
       } else {
-        
         emit(const TokenState.initial());
       }
     } catch (_) {

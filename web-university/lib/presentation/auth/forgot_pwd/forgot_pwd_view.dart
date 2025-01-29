@@ -115,23 +115,24 @@ class ForgotPwdView extends StatelessWidget {
               ),
               Gap(inset.sm),
               ValueListenableBuilder(
-                  valueListenable: _isSended,
-                  builder: (context, isSended, _) {
-                    return CustomTextField(
-                      readOnly: isSended,
-                      hint: 'University email',
-                      validator: (email) {
-                        if (_textController.isItemEmpty(0)) {
-                          return "* Required";
-                        }
-                        if (_textController.isValidEmailAt(0)) {
-                          return "Invalid Email";
-                        }
-                        return null;
-                      },
-                      controller: _textController[0],
-                    );
-                  }),
+                valueListenable: _isSended,
+                builder: (context, isSended, _) {
+                  return CustomTextField(
+                    readOnly: isSended,
+                    hint: 'University email',
+                    validator: (email) {
+                      if (_textController.isItemEmpty(0)) {
+                        return "* Required";
+                      }
+                      if (_textController.isValidEmailAt(0)) {
+                        return "Invalid Email";
+                      }
+                      return null;
+                    },
+                    controller: _textController[0],
+                  );
+                },
+              ),
               Gap(inset.sm),
               ValueListenableBuilder(
                 valueListenable: _isSended,

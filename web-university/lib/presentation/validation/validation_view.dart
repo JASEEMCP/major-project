@@ -92,6 +92,7 @@ class _CollegeValidationState extends State<CollegeValidation> {
     super.initState();
     _fetchColleges();
   }
+
   int currentIndex = -1;
 
   @override
@@ -159,20 +160,22 @@ class _CollegeValidationState extends State<CollegeValidation> {
                                   builder: (context, isVerifying, _) {
                                     return CustomButton(
                                       width: 80,
-                                      name:
-                                           isVerifying && currentIndex==index ? 'Verifying' : 'Verify',
+                                      name: isVerifying && currentIndex == index
+                                          ? 'Verifying'
+                                          : 'Verify',
                                       radius: 30,
                                       color: Colors.green,
-                                      onTap: isVerifying && currentIndex==index
-                                          ? null
-                                          : () {
-                                            currentIndex = index;
-                                              _verifyCollege(
-                                                  _collegeList[index]
-                                                          .collegeId ??
-                                                      '',
-                                                  context);
-                                            },
+                                      onTap:
+                                          isVerifying && currentIndex == index
+                                              ? null
+                                              : () {
+                                                  currentIndex = index;
+                                                  _verifyCollege(
+                                                      _collegeList[index]
+                                                              .collegeId ??
+                                                          '',
+                                                      context);
+                                                },
                                     );
                                   },
                                 )

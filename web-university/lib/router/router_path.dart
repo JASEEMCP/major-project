@@ -10,12 +10,10 @@ class ScreenPath {
   static const signupPwd = '/signup-pwd';
   static const signupProfile = '/signup-profile';
 
-
   /// Main routes
   static const explore = '/explore';
   static const validation = '/validation';
   static const profile = '/profile';
-  
 
   /// Sub -routes
   static detail(String id) => _appendIdIntoCurrentPath('/detail/$id');

@@ -10,7 +10,9 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.controller,
     this.isObscure,
-    this.suffix, this.inputFormatter, this.readOnly,
+    this.suffix,
+    this.inputFormatter,
+    this.readOnly,
   });
   final String hint;
   final String? Function(String?)? validator;
