@@ -22,7 +22,7 @@ class AppLogic {
       if (pref.token.value.isProfileCreated ?? false) {
         appRouter.go(ScreenPath.explore);
       } else {
-        appRouter.go(ScreenPath.login);
+        appRouter.go(ScreenPath.signupProfile);
       }
       // appRouter.go(initialDeepLink ?? ScreenPath.explore);
     } catch (e) {
