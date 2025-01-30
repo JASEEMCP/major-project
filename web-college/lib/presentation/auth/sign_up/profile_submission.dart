@@ -72,6 +72,7 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
           isProfileCreated: true,
           
         );
+        tokenCubit.updateToken(pref.token.value);
         appRouter.go(ScreenPath.explore);
         _submitting.value = false;
       } else {
