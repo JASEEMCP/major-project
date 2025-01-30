@@ -48,9 +48,12 @@ class _HostEventViewState extends State<HostEventView> {
         _isLoading.value = false;
       }
     } on DioException catch (_) {
+      isError = true;
       _isLoading.value = false;
     }
   }
+
+  bool isError = false;
 
   @override
   void initState() {
@@ -67,7 +70,7 @@ class _HostEventViewState extends State<HostEventView> {
           if (isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (_myEventsList.isEmpty) {
+          if (_myEventsList.isEmpty && isError) {
             return const Center(child: CustomText(txt: 'No data found'));
           }
           return SingleChildScrollView(

@@ -34,10 +34,10 @@ class ScreenLogin extends StatelessWidget {
         pref.token.value = Token.fromJson(response.data);
 
         tokenCubit.updateToken(pref.token.value);
-        if(pref.token.value.isProfileCreated??false){
+        if (pref.token.value.isProfileCreated ?? false) {
           appRouter.go(ScreenPath.explore);
-        }else{
-        appRouter.go(ScreenPath.signupProfile);
+        } else {
+          appRouter.go(ScreenPath.signupProfile);
         }
       } else {
         apiState = ErrorState();
