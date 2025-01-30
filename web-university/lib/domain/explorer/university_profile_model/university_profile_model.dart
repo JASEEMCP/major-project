@@ -12,6 +12,7 @@ class UniversityProfileModel {
   String? website;
   @JsonKey(name: 'short_name')
   String? shortName;
+  
 
   UniversityProfileModel({
     this.name,
@@ -20,6 +21,7 @@ class UniversityProfileModel {
     this.email,
     this.website,
     this.shortName,
+    
   });
 
   factory UniversityProfileModel.fromJson(Map<String, dynamic> json) {

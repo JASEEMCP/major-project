@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
 String email = '';
-
+String uName = '';
 final DioCookieManger dioCookie = DioCookieManger();
 
 class SignUpScreen extends StatelessWidget {
@@ -26,6 +26,7 @@ class SignUpScreen extends StatelessWidget {
   _sendOtp(BuildContext ctx) async {
     try {
       _isSending.value = true;
+      uName = _textController[2].text.trim();
       final response = await dioCookie.dio.post(
         "${Env().apiBaseUrl}home/signup/",
         data: {

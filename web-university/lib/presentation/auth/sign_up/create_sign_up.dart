@@ -1,3 +1,4 @@
+import 'package:app/domain/auth/token.dart';
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/auth/sign_up/sign_up_screen.dart';
 import 'package:app/presentation/widget/custom_elevated_button.dart';
@@ -34,6 +35,12 @@ class _ForgotPwdViewState extends State<CreateSignUp> {
         );
         if (response.statusCode == 200) {
           _isLoading.value = false;
+          var token = Token.fromJson(response.data);
+          token = token.copyWith(
+            userType: 'University',
+            name: uName,
+          );
+          pref.token.value = token;
           if (ctx.mounted) {
             ctx.go(ScreenPath.signupProfile);
           }

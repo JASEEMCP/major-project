@@ -1,3 +1,4 @@
+import 'package:app/router/router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:app/main.dart';
 import 'package:app/router/router_path.dart';
@@ -20,9 +21,9 @@ class AppLogic {
       //print(pref.token.value.toJson());
       isBootStrapComplete = true;
       if (pref.token.value.isProfileCreated ?? false) {
-        appRouter.go(ScreenPath.explore);
+        appRouter.go(initialDeepLink?? ScreenPath.explore);
       } else {
-        appRouter.go(ScreenPath.signupProfile);
+        appRouter.go(ScreenPath.login);
       }
       // appRouter.go(initialDeepLink ?? ScreenPath.explore);
     } catch (e) {

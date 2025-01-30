@@ -1,4 +1,6 @@
 import 'package:app/domain/explorer/category_list_model/category_list_model.dart';
+import 'package:app/domain/explorer/university_profile_model/university_profile_model.dart';
+import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/explore/explore_view.dart';
 import 'package:app/presentation/widget/custom_circle_btn.dart';
 import 'package:app/presentation/widget/custom_elevated_button.dart';
@@ -6,6 +8,7 @@ import 'package:app/presentation/widget/custom_text_field.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
 class ProfileSubmission extends StatefulWidget {
@@ -21,9 +24,42 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
     (_) => generateTextController(),
   );
 
-  @override
-  void initState() {
-    super.initState();
+  final ValueNotifier<bool> _isLoading = ValueNotifier(false);
+
+  _submitProfile() async {
+    try {
+      _isLoading.value = true;
+      final profile = UniversityProfileModel(
+        phoneNo: _textController[1].text.trim(),
+        website: _textController[3].text.trim(),
+        shortName: _textController[0].text.trim(),
+        address: _textController[2].text.trim(),
+      );
+
+      final response = await Future.wait([
+        dioClient.dio.get(
+          '${Env().apiBaseUrl}home/college/university-list/',
+          data: profile.toJson(),
+        ),
+        dioClient.dio.post(
+          '${Env().apiBaseUrl}home/university/manage-event-category/',
+          data: _categoryList.value.map((e) => e.toJson()).toList(),
+        )
+      ]);
+
+      if (response[0].statusCode == 200 && response[1].statusCode == 201) {
+        pref.token.value = pref.token.value.copyWith(
+          isProfileCreated: true,
+        );
+        tokenCubit.updateToken(pref.token.value);
+        appRouter.go(ScreenPath.explore);
+        _isLoading.value = false;
+      } else {
+        _isLoading.value = false;
+      }
+    } on DioException catch (_) {
+      _isLoading.value = false;
+    }
   }
 
   final ValueNotifier<List<CategoryListModel>> _categoryList =
@@ -126,16 +162,23 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
                         },
                         controller: _textController[3],
                       ),
-                      CustomButton(
-                        name: 'Submit',
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (_categoryList.value.isEmpty) {
-                              return context
-                                  .showCustomSnackBar('Category Not Empty');
-                            }
-                          }
-                        },
+                      ValueListenableBuilder(
+                        valueListenable: _isLoading,
+                        builder: (context,isLoading,_) {
+                          return CustomButton(
+                            name: 'Submit',
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                if (_categoryList.value.isEmpty) {
+                                  return context
+                                      .showCustomSnackBar('Category Not Empty');
+                                }
+
+                                _submitProfile();
+                              }
+                            },
+                          );
+                        }
                       )
                     ],
                   ),
