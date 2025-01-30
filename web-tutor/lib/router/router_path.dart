@@ -11,6 +11,7 @@ class ScreenPath {
   static const explore = '/explore';
   static const confirmation = '/confirmation';
   static const profile = '/profile';
+
   /// Sub Routes
 
   ///Appending path

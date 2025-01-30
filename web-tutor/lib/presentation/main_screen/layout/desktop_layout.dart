@@ -19,13 +19,13 @@ class DesktopLayout extends StatelessWidget {
               currentIndex: index,
               onTap: (value) {
                 tabChangeNotifier.value = value;
-                switch(value){
+                switch (value) {
                   case 0:
-                  return context.go(ScreenPath.explore);
+                    return context.go(ScreenPath.explore);
                   case 1:
-                  return context.go(ScreenPath.confirmation);
+                    return context.go(ScreenPath.confirmation);
                   default:
-                  return context.go(ScreenPath.profile);
+                    return context.go(ScreenPath.profile);
                 }
               },
               items: const [
@@ -33,7 +33,6 @@ class DesktopLayout extends StatelessWidget {
                   label: 'Verification',
                   icon: Icon(
                     Icons.verified_outlined,
-                    
                   ),
                 ),
                 BottomNavigationBarItem(

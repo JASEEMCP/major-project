@@ -24,7 +24,7 @@ class _ScreenVerifyStudentState extends State<ScreenVerifyStudent> {
       _isLoading.value = true;
 
       final res = await dioClient.dio
-          .get("${Env().apiBaseUrl}home/tutor/verify-students");
+          .get("${Env().apiBaseUrl}home/tutor/verify-students/");
       if (res.statusCode == 200) {
         _studentList = (res.data as List)
             .map((e) => StudentListModel.fromJson(e))
@@ -41,7 +41,7 @@ class _ScreenVerifyStudentState extends State<ScreenVerifyStudent> {
   _refresh() async {
     try {
       final res = await dioClient.dio
-          .get("${Env().apiBaseUrl}home/tutor/verify-students");
+          .get("${Env().apiBaseUrl}home/tutor/verify-students/");
       if (res.statusCode == 200) {
         _studentList = (res.data as List)
             .map((e) => StudentListModel.fromJson(e))
@@ -93,7 +93,6 @@ class _ScreenVerifyStudentState extends State<ScreenVerifyStudent> {
     final inset = $style.insets;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.theme.indigoLight,
         centerTitle: false,
         title: const CustomText(
           txt: 'Verify Student',
@@ -111,10 +110,11 @@ class _ScreenVerifyStudentState extends State<ScreenVerifyStudent> {
           }
           return ListView.separated(
             itemCount: _studentList.length,
-            padding: EdgeInsets.symmetric(horizontal: inset.sm),
+            padding: EdgeInsets.all(inset.xs),
             separatorBuilder: (context, index) => const Divider(),
             itemBuilder: (ctx, index) {
               return ListTile(
+                tileColor: context.theme.kWhite,
                 title: CustomText(
                   txt: _studentList[index].registerNo ?? 'N/A',
                   color: context.theme.indigo,
@@ -140,7 +140,10 @@ class _ScreenVerifyStudentState extends State<ScreenVerifyStudent> {
                     );
                   },
                 ),
-                contentPadding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                contentPadding: EdgeInsets.all(inset.sm),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: inset.xxs,
