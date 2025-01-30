@@ -1,9 +1,11 @@
 import 'package:app/domain/explorer/unverified_event_list_model/unverified_event_list_model.dart';
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/main.dart';
+import 'package:app/presentation/confirmation/screen/event_detail_screen.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/extensions.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 final ValueNotifier _isLoading = ValueNotifier(false);
@@ -87,6 +89,16 @@ class _ScreenEventConfirmationState extends State<ScreenEventConfirmation> {
             separatorBuilder: (context, index) => const Divider(),
             itemBuilder: (ctx, index) {
               return ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (ctx) => StudentDetailScreen(
+                        id: _eventList[index].eventId ?? '',
+                      ),
+                    ),
+                  );
+                },
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
