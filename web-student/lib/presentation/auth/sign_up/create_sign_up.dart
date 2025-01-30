@@ -1,3 +1,4 @@
+import 'package:app/domain/auth/token.dart';
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/auth/sign_up/sign_up_screen.dart';
 import 'package:app/presentation/widget/custom_elevated_button.dart';
@@ -29,11 +30,18 @@ class _ForgotPwdViewState extends State<CreateSignUp> {
           '${Env().apiBaseUrl}/home/signup/password/',
           data: {
             'password': _pwdController[2].text.trim(),
-            'user_type': "Club",
+            'user_type': "Student",
           },
         );
         if (response.statusCode == 200) {
           _isLoading.value = false;
+           pref.token.value = Token.fromJson(response.data);
+          pref.token.value = pref.token.value.copyWith(
+            isProfileCreated: false,
+            userType: 'Student',
+            name: clubName,
+          );
+          tokenCubit.updateToken(pref.token.value);
           if (ctx.mounted) {
             ctx.go(ScreenPath.signupProfile);
           }

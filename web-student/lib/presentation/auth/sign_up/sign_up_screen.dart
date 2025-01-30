@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
 String email = '';
+String clubName = '';
 
 final DioCookieManger dioCookie = DioCookieManger();
 
@@ -70,6 +71,7 @@ class SignUpScreen extends StatelessWidget {
       );
       if (response.statusCode == 200) {
         _isSending.value = false;
+        clubName =  _textController[2].text.trim();
         if (context.mounted) {
           context.showCustomSnackBar(
               response.data['message'] ?? 'An error occurred', Colors.green);
