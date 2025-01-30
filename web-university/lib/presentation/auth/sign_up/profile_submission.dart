@@ -37,8 +37,8 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
       );
 
       final response = await Future.wait([
-        dioClient.dio.get(
-          '${Env().apiBaseUrl}home/college/university-list/',
+        dioClient.dio.put(
+          '${Env().apiBaseUrl}home/university/manage-profile/',
           data: profile.toJson(),
         ),
         dioClient.dio.post(
@@ -48,6 +48,7 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
       ]);
 
       if (response[0].statusCode == 200 && response[1].statusCode == 201) {
+        
         pref.token.value = pref.token.value.copyWith(
           isProfileCreated: true,
         );
@@ -163,23 +164,22 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
                         controller: _textController[3],
                       ),
                       ValueListenableBuilder(
-                        valueListenable: _isLoading,
-                        builder: (context,isLoading,_) {
-                          return CustomButton(
-                            name: 'Submit',
-                            onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                if (_categoryList.value.isEmpty) {
-                                  return context
-                                      .showCustomSnackBar('Category Not Empty');
-                                }
+                          valueListenable: _isLoading,
+                          builder: (context, isLoading, _) {
+                            return CustomButton(
+                              name: 'Submit',
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (_categoryList.value.isEmpty) {
+                                    return context.showCustomSnackBar(
+                                        'Category Not Empty');
+                                  }
 
-                                _submitProfile();
-                              }
-                            },
-                          );
-                        }
-                      )
+                                  _submitProfile();
+                                }
+                              },
+                            );
+                          })
                     ],
                   ),
                 ),
