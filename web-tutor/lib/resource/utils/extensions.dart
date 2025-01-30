@@ -31,7 +31,7 @@ extension StringStyling on String {
 
 SnackBar showSnackBar(String content, [Color? color]) {
   return SnackBar(
-    width: 380,
+    //width: 380,
     dismissDirection: DismissDirection.down,
     duration: const Duration(milliseconds: 1400),
     elevation: 0,

@@ -72,6 +72,9 @@ class _$TokenStateCopyWithImpl<$Res, $Val extends TokenState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of TokenState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -88,6 +91,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of TokenState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -193,6 +199,8 @@ class __$$AuthorizedImplCopyWithImpl<$Res>
       _$AuthorizedImpl _value, $Res Function(_$AuthorizedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TokenState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -231,7 +239,9 @@ class _$AuthorizedImpl implements _Authorized {
   @override
   int get hashCode => Object.hash(runtimeType, token);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TokenState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AuthorizedImplCopyWith<_$AuthorizedImpl> get copyWith =>
@@ -304,7 +314,10 @@ abstract class _Authorized implements TokenState {
   const factory _Authorized(final Token? token) = _$AuthorizedImpl;
 
   Token? get token;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TokenState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthorizedImplCopyWith<_$AuthorizedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

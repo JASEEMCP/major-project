@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:app/resource/db/pref_file.dart';
 
-
 mixin LoadAndSaveMixin {
   late final _file = PrefFile(fileName);
 

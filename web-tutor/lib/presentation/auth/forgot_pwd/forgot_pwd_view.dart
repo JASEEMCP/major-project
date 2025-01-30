@@ -70,7 +70,7 @@ class ForgotPwdView extends StatelessWidget {
         if (context.mounted) {
           context.showCustomSnackBar(
               response.data['message'] ?? 'An error occurred', Colors.green);
-          context.go(ScreenPath.resetPwd);
+          context.go(ScreenPath.resetPwd());
         }
       } else {
         _isSending.value = false;

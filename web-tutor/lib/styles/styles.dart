@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
@@ -142,7 +140,7 @@ class _Insets {
   _Insets(this._scale);
   final double _scale;
 
-   late final double xxxs = 2 * _scale;
+  late final double xxxs = 2 * _scale;
   late final double xxs = 4 * _scale;
   late final double xs = 8 * _scale;
   late final double sm = 16 * _scale;
@@ -151,5 +149,5 @@ class _Insets {
   late final double xl = 48 * _scale;
   late final double xxl = 56 * _scale;
   late final double offset = 80 * _scale;
-  double customSize (double s)=> s * _scale;
+  double customSize(double s) => s * _scale;
 }

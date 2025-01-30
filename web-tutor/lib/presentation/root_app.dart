@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/application/common/theme_cubit/theme_cubit.dart';
@@ -17,20 +15,18 @@ class RootApp extends StatelessWidget {
   static AppStyle _style = AppStyle();
   @override
   Widget build(BuildContext context) {
-    
     return MultiBlocProvider(
       providers: [
         ...RegisterCubits().register(),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
-           _style = AppStyle(screenSize: context.mq);
+          _style = AppStyle(screenSize: context.mq);
           return MaterialApp.router(
             title: 'Tutor',
             debugShowCheckedModeBanner: Env.kDebugMode,
             theme: AppTheme.fromType(ThemeType.light).themeData,
             routerConfig: AppRouter.router,
-            
           );
         },
       ),
