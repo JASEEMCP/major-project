@@ -12,7 +12,7 @@ class CollegeDetailModel {
   String? collegeId;
   String? name;
   String? address;
-  @JsonKey(name: 'principle_name')
+  @JsonKey(name: 'principal_name')
   String? principleName;
   @JsonKey(name: 'phone_no')
   String? phoneNo;

@@ -178,52 +178,55 @@ class _CollegeDetailViewState extends State<CollegeDetailView> {
                           );
                         }),
                     Gap(inset.sm),
-                    Container(
-                      padding: EdgeInsets.all(inset.sm),
-                      color: context.theme.indigoLight,
-                      child: Column(
-                        children: [
-                          const Row(
-                            children: [
-                              Icon(Icons.add_box),
-                              CustomText(
-                                txt: 'Clubs',
-                                color: Colors.green,
-                              ),
-                            ],
-                          ),
-                          Gap(inset.sm),
-                          ListView.separated(
-                            separatorBuilder: (context, index) => Gap(inset.xs),
-                            shrinkWrap: true,
-                            itemCount: _collegeDetail?.clubList?.length ?? 0,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (ctx, index) {
-                              return Container(
-                                padding: EdgeInsets.all(inset.sm),
-                                decoration: applyBorderRadius(context),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomText(
-                                      txt: _collegeDetail?.clubList?[index]
-                                              .authorityName ??
-                                          'N/A',
-                                      color: Colors.green,
-                                    ),
-                                    rowTitleText(
-                                        'Authorizer',
-                                        _collegeDetail
-                                                ?.clubList?[index].authorName ??
-                                            'N/A'),
-                                  ],
+                    if ((_collegeDetail?.department ?? []).isNotEmpty)
+                      Container(
+                        padding: EdgeInsets.all(inset.sm),
+                        color: context.theme.indigoLight,
+                        child: Column(
+                          children: [
+                            const Row(
+                              children: [
+                                Icon(Icons.add_box),
+                                CustomText(
+                                  txt: 'Clubs',
+                                  color: Colors.green,
                                 ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    )
+                              ],
+                            ),
+                            Gap(inset.sm),
+                            ListView.separated(
+                              separatorBuilder: (context, index) =>
+                                  Gap(inset.xs),
+                              shrinkWrap: true,
+                              itemCount: _collegeDetail?.clubList?.length ?? 0,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (ctx, index) {
+                                return Container(
+                                  padding: EdgeInsets.all(inset.sm),
+                                  decoration: applyBorderRadius(context),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CustomText(
+                                        txt: _collegeDetail?.clubList?[index]
+                                                .authorityName ??
+                                            'N/A',
+                                        color: Colors.green,
+                                      ),
+                                      rowTitleText(
+                                          'Authorizer',
+                                          _collegeDetail?.clubList?[index]
+                                                  .authorName ??
+                                              'N/A'),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      )
                   ],
                 )
               ],
