@@ -44,14 +44,17 @@ class TokenCubit extends Cubit<TokenState> {
       userType: null,
       profileId: null,
       isVerified: null,
-      
     );
     emit(const TokenState.initial());
   }
 
   Future<String?> refreshToken() async {
-    final response =
-        await dioClient.dio.post("${Env().apiBaseUrl}home/token/refresh/");
+    final response = await dioClient.dio.post(
+      "${Env().apiBaseUrl}home/token/refresh/",
+       data: {
+        'refresh': pref.token.value.refreshToken,
+      },
+    );
     if (response.statusCode == 200) {
       final token = Token.fromJson(response.data);
       pref.token.value.accessToken = token.accessToken;
