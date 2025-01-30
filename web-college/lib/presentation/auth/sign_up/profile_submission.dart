@@ -1,7 +1,10 @@
+import 'package:app/domain/explorer/university_list_model/university_list_model.dart';
+import 'package:app/infrastructure/env/env.dart';
 import 'package:app/presentation/widget/custom_elevated_button.dart';
 import 'package:app/presentation/widget/custom_search_field.dart';
 import 'package:app/presentation/widget/custom_text_field.dart';
 import 'package:app/resource/utils/common_lib.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
 class ProfileSubmission extends StatefulWidget {
@@ -16,6 +19,28 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
     7,
     (_) => generateTextController(),
   );
+    final ValueNotifier<bool> _isLoading = ValueNotifier(false);
+
+  List<MenuItem> _universityList = [];
+
+_getUniversityList()async{
+  try{
+  _isLoading.value = true;
+
+  final response = await dioClient.dio.get('${Env().apiBaseUrl}home/college/university-list/');
+  if(response.statusCode == 201){
+
+    final university = (response.data as List).map((e)=>UniversityListModel.fromJson(e)).toList();
+    _isLoading.value = false;
+
+  }else{
+    _isLoading.value = false;
+  }
+  }
+  on DioException catch(_){
+    _isLoading.value = false;
+  }
+}
 
   final _formKey = generateFormKey();
 
