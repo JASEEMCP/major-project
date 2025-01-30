@@ -39,8 +39,9 @@ class _HostEventViewState extends State<HostEventView> {
       if (_myEventsList.isNotEmpty) return;
       _isLoading.value = true;
 
-      final response = await dioClient.dio
-          .get('${Env().apiBaseUrl}home/club/my-events-list/');
+      final response = await dioClient.dio.get(
+        '${Env().apiBaseUrl}home/club/my-events-list/',
+      );
       if (response.statusCode == 200) {
         _myEventsList = (response.data as List)
             .map((e) => MyEventList.fromJson(e))
