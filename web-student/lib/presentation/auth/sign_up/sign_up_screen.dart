@@ -71,7 +71,7 @@ class SignUpScreen extends StatelessWidget {
       );
       if (response.statusCode == 200) {
         _isSending.value = false;
-        clubName =  _textController[2].text.trim();
+        clubName = _textController[2].text.trim();
         if (context.mounted) {
           context.showCustomSnackBar(
               response.data['message'] ?? 'An error occurred', Colors.green);

@@ -8,9 +8,9 @@ import 'package:app/resource/injectable.dart';
 import 'package:app/router/router.dart';
 import 'package:app/styles/styles.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   //Configuring injection
   await configureInjection();
 
@@ -19,7 +19,6 @@ Future<void> main() async{
   // Starting bootstrap
   await appLogic.bootstrap();
 }
-
 
 AppStyle get $style => RootApp.style;
 final appRouter = AppRouter.router;

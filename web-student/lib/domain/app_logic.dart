@@ -20,7 +20,7 @@ class AppLogic {
       ///Flagging bootstrap
       isBootStrapComplete = true;
       if (pref.token.value.isProfileCreated ?? false) {
-        appRouter.go(initialDeepLink?? ScreenPath.explore);
+        appRouter.go(initialDeepLink ?? ScreenPath.explore);
       } else {
         appRouter.go(ScreenPath.login);
         //appRouter.go(ScreenPath.signupProfile);

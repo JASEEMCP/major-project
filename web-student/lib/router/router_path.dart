@@ -11,20 +11,15 @@ class ScreenPath {
   static const signupProfile = '/signup-profile';
 
   /// Main Routes
-  
+
   static const profile = '/profile';
   static const history = '/history';
   static const explore = '/explore';
 
-
   /// Sub-Routes
-  
-  static  detail(String id) => _appendIdIntoCurrentPath('/detail/$id');
-  static  createEvent() => _appendIdIntoCurrentPath('/create');
 
-
-
-  
+  static detail(String id) => _appendIdIntoCurrentPath('/detail/$id');
+  static createEvent() => _appendIdIntoCurrentPath('/create');
 
   ///Appending path
   static _appendIdIntoCurrentPath(String path) {

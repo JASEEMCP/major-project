@@ -27,7 +27,6 @@ class DioClient {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          print(tokenCubit.state);
           _dio.options.headers = tokenCubit.state.toAuthorizationHeader();
 
           /// Check if tokens are valid before making the request
@@ -49,8 +48,7 @@ class DioClient {
           }
 
           ///Handle Unauthorized exception
-          if (tokenCubit.state.isAuthenticated &&
-              e.response?.statusCode == 401) {
+          if (e.response?.statusCode == 401) {
             if (e.response != null) {
               final result = await tokenCubit.refreshToken();
 

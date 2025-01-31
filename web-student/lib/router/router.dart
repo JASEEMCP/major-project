@@ -1,5 +1,3 @@
-
-
 import 'package:app/presentation/home/home_view.dart';
 import 'package:app/presentation/home/my_event_view.dart';
 import 'package:app/presentation/home/profile_view.dart';
@@ -79,8 +77,7 @@ class AppRouter {
               );
             },
           ),
-          
-         
+
           /// Profile
         ],
       ),

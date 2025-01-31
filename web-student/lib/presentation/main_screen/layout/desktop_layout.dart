@@ -9,7 +9,6 @@ class DesktopLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       backgroundColor: context.theme.indigoLight,
       body: child,
       bottomNavigationBar: ValueListenableBuilder(
@@ -20,18 +19,18 @@ class DesktopLayout extends StatelessWidget {
               currentIndex: index,
               onTap: (value) {
                 tabChangeNotifier.value = value;
-                switch(value){
+                switch (value) {
                   case 0:
-                  return context.go(ScreenPath.explore);
+                    return context.go(ScreenPath.explore);
                   case 1:
-                  return context.go(ScreenPath.history);
+                    return context.go(ScreenPath.history);
                   default:
-                  return context.go(ScreenPath.profile);
+                    return context.go(ScreenPath.profile);
                 }
               },
               items: const [
                 BottomNavigationBarItem(
-                  label: 'Event',
+                  label: 'Home',
                   icon: Icon(
                     Icons.event,
                   ),

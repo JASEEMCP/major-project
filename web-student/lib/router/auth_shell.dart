@@ -1,5 +1,3 @@
-
-
 import 'package:app/presentation/auth/forgot_pwd/forgot_pwd_view.dart';
 import 'package:app/presentation/auth/forgot_pwd/reset_pwd_view.dart';
 import 'package:app/presentation/auth/login_screen.dart';
@@ -33,7 +31,6 @@ class AuthShell {
               child: ScreenLogin(),
             );
           },
-          
         ),
         // Forgot Password Screen
         GoRoute(
@@ -94,5 +91,4 @@ class AuthShell {
       ],
     ),
   ];
- 
 }

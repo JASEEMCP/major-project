@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 
 class MyEventView extends StatelessWidget {
@@ -8,7 +5,7 @@ class MyEventView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(),
     );
   }

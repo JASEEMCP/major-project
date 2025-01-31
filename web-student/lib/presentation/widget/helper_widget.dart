@@ -95,9 +95,9 @@ class ErrorTextWidget extends StatelessWidget {
         Gap(inset.sm),
         if (onTap != null)
           CustomButton(
-            
             onTap: onTap!,
-            width: 150, name: 'Try Again',
+            width: 150,
+            name: 'Try Again',
           ),
       ],
     );
@@ -147,19 +147,18 @@ Future<dynamic> customAlertBox(
   );
 }
 
-
-Row rowTitleText(String title,String content) {
-    return Row(
-      children: [
-        CustomText(
-          txt: '$title : ',
-          fontSize: 14,
-        ),
-        CustomText(
-          txt: content,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        )
-      ],
-    );
-  }
+Row rowTitleText(String title, String content) {
+  return Row(
+    children: [
+      CustomText(
+        txt: '$title : ',
+        fontSize: 14,
+      ),
+      CustomText(
+        txt: content,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      )
+    ],
+  );
+}

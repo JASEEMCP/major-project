@@ -35,7 +35,7 @@ class _ForgotPwdViewState extends State<CreateSignUp> {
         );
         if (response.statusCode == 200) {
           _isLoading.value = false;
-           pref.token.value = Token.fromJson(response.data);
+          pref.token.value = Token.fromJson(response.data);
           pref.token.value = pref.token.value.copyWith(
             isProfileCreated: false,
             userType: 'Student',
