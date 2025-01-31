@@ -69,37 +69,37 @@ class _ScreenProfileState extends State<ScreenProfile> {
         ],
       ),
       body: ValueListenableBuilder(
-          valueListenable: _isLoading,
-          builder: (context, isLoading, _) {
-            if (isLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (_studentList == null) {
-              return const Center(child: CustomText(txt: 'No data found'));
-            }
-            return SingleChildScrollView(
-              padding: EdgeInsets.all($style.insets.xs),
-              child: Container(
-                padding: EdgeInsets.all($style.insets.sm),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: context.theme.kWhite,
-                ),
-                child: Column(
-                  spacing: $style.insets.xs,
-                  children: [
-                    rowTitleText('Name', _studentList?.name ?? 'N/A'),
-                    rowTitleText(
-                        'Department', _studentList?.department ?? 'N/A'),
-                    rowTitleText('Email', _studentList?.email ?? 'N/A'),
-                    rowTitleText('Gender', _studentList?.gender ?? 'N/A'),
-                    rowTitleText(
-                        'Academic Year', _studentList?.academicYear ?? 'N/A'),
-                  ],
-                ),
+        valueListenable: _isLoading,
+        builder: (context, isLoading, _) {
+          if (isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (_studentList == null) {
+            return const Center(child: CustomText(txt: 'No data found'));
+          }
+          return SingleChildScrollView(
+            padding: EdgeInsets.all($style.insets.xs),
+            child: Container(
+              padding: EdgeInsets.all($style.insets.sm),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: context.theme.kWhite,
               ),
-            );
-          }),
+              child: Column(
+                spacing: $style.insets.xs,
+                children: [
+                  rowTitleText('Name', _studentList?.name ?? 'N/A'),
+                  rowTitleText('Department', _studentList?.department ?? 'N/A'),
+                  rowTitleText('Email', _studentList?.email ?? 'N/A'),
+                  rowTitleText('Gender', _studentList?.gender ?? 'N/A'),
+                  rowTitleText(
+                      'Academic Year', _studentList?.academicYear ?? 'N/A'),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
