@@ -32,7 +32,11 @@ class ScreenLogin extends StatelessWidget {
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
-
+        if(pref.token.value.isVerified??false){
+          if(context.mounted){
+          return context.showCustomSnackBar('Club is Not verified',Colors.red);
+          }
+        }
         tokenCubit.updateToken(pref.token.value);
         if (pref.token.value.isProfileCreated ?? false) {
           appRouter.go(ScreenPath.explore);

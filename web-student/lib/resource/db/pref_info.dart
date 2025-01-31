@@ -12,6 +12,8 @@ class PrefInfo with LoadAndSaveMixin {
       isProfileCreated: false,
       name: null,
       userType: null,
+      profileId: null,
+      isVerified: false,
     ),
   )..addListener(save);
 
@@ -22,6 +24,8 @@ class PrefInfo with LoadAndSaveMixin {
     token.value.isProfileCreated = data['is_profile_created'] ?? false;
     token.value.name = data['name'] ?? '';
     token.value.userType = data['user_type'] ?? '';
+    token.value.isVerified = data['is_verified'] ?? false;
+    token.value.profileId = data['profile_id'] ?? '';
   }
 
   @override
@@ -35,6 +39,8 @@ class PrefInfo with LoadAndSaveMixin {
       'name': token.value.name,
       'user_type': token.value.userType,
       'is_profile_created': token.value.isProfileCreated,
+      'is_verified': token.value.isVerified,
+      'profile_id': token.value.profileId,
     };
   }
 }
