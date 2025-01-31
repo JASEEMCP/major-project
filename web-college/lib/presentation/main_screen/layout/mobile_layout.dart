@@ -1,10 +1,9 @@
 import 'package:app/domain/explorer/college_detail_model/event_list.dart';
 import 'package:app/infrastructure/env/env.dart';
-import 'package:app/main.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
+import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 final ValueNotifier _isLoading = ValueNotifier(false);
 
@@ -14,8 +13,7 @@ class MobileLayout extends StatefulWidget {
   const MobileLayout({super.key});
 
   @override
-  State<MobileLayout> createState() =>
-      _MobileLayoutState();
+  State<MobileLayout> createState() => _MobileLayoutState();
 }
 
 class _MobileLayoutState extends State<MobileLayout> {
@@ -27,9 +25,8 @@ class _MobileLayoutState extends State<MobileLayout> {
       final res = await dioClient.dio
           .get("${Env().apiBaseUrl}home/tutor/unconfirmed-events/");
       if (res.statusCode == 200) {
-        _eventList = (res.data as List)
-            .map((e) => EventList.fromJson(e))
-            .toList();
+        _eventList =
+            (res.data as List).map((e) => EventList.fromJson(e)).toList();
         _isLoading.value = false;
       } else {
         _isLoading.value = false;
@@ -44,9 +41,8 @@ class _MobileLayoutState extends State<MobileLayout> {
       final res = await dioClient.dio
           .get("${Env().apiBaseUrl}home/tutor/unconfirmed-events/");
       if (res.statusCode == 200) {
-        _eventList = (res.data as List)
-            .map((e) => EventList.fromJson(e))
-            .toList();
+        _eventList =
+            (res.data as List).map((e) => EventList.fromJson(e)).toList();
         _isLoading.value = true;
         _isLoading.value = false;
       } else {}
@@ -71,6 +67,22 @@ class _MobileLayoutState extends State<MobileLayout> {
           txt: 'Mark Attendance',
           fontSize: 16,
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              customAlertBox(
+                context,
+                title: 'Logout',
+                content: 'Do you want to logout?',
+                onTap: () {
+                  tokenCubit.logoutUser();
+                  context.go(ScreenPath.login);
+                },
+              );
+            },
+            child: const CustomText(txt: 'LOGOUT'),
+          ),
+        ],
       ),
       body: ValueListenableBuilder(
         valueListenable: _isLoading,
@@ -108,7 +120,6 @@ class _MobileLayoutState extends State<MobileLayout> {
                         txt: _eventList[index].eventName ?? 'N/A',
                         color: context.theme.indigo,
                       ),
-                      
                     ],
                   ),
                   shape: RoundedRectangleBorder(
