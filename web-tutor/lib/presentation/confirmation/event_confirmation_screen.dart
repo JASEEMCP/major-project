@@ -4,6 +4,7 @@ import 'package:app/main.dart';
 import 'package:app/presentation/confirmation/screen/event_detail_screen.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/extensions.dart';
+import 'package:app/router/router.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,19 +42,19 @@ class _ScreenEventConfirmationState extends State<ScreenEventConfirmation> {
     }
   }
 
-  // _refresh() async {
-  //   try {
-  //     final res = await dioClient.dio
-  //         .get("${Env().apiBaseUrl}home/tutor/verify-students");
-  //     if (res.statusCode == 200) {
-  //       _eventList = (res.data as List)
-  //           .map((e) => StudentListModel.fromJson(e))
-  //           .toList();
-  //       _isLoading.value = true;
-  //       _isLoading.value = false;
-  //     } else {}
-  //   } on DioException catch (_) {}
-  // }
+  _refresh() async {
+    try {
+      final res = await dioClient.dio
+          .get("${Env().apiBaseUrl}home/tutor/unconfirmed-events/");
+      if (res.statusCode == 200) {
+        _eventList = (res.data as List)
+            .map((e) => UnverifiedEventListModel.fromJson(e))
+            .toList();
+        _isLoading.value = true;
+        _isLoading.value = false;
+      } else {}
+    } on DioException catch (_) {}
+  }
 
   int currentIndex = -1;
 
@@ -83,60 +84,65 @@ class _ScreenEventConfirmationState extends State<ScreenEventConfirmation> {
           if (_eventList.isEmpty) {
             return const Center(child: CustomText(txt: 'No data found'));
           }
-          return ListView.separated(
-            itemCount: _eventList.length,
-            padding: EdgeInsets.symmetric(horizontal: inset.sm),
-            separatorBuilder: (context, index) => const Divider(),
-            itemBuilder: (ctx, index) {
-              return ListTile(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (ctx) => StudentDetailScreen(
-                        id: _eventList[index].eventId ?? '',
-                      ),
-                    ),
-                  );
-                },
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomText(
-                      txt: _eventList[index].eventName ?? 'N/A',
-                      color: context.theme.indigo,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: CircleAvatar(
-                        radius: 8,
-                        child: CustomText(
-                          txt: _eventList[index]
-                              .registeredStudentCount
-                              .toString(),
-                          fontSize: 8,
+          return RefreshIndicator(
+            onRefresh: () async {
+              await _refresh();
+            },
+            child: ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: _eventList.length,
+              padding: EdgeInsets.symmetric(horizontal: inset.sm),
+              separatorBuilder: (context, index) => const Divider(),
+              itemBuilder: (ctx, index) {
+                return ListTile(
+                  onTap: () {
+                    AppRouter.rootKey.currentState?.push(
+                      CupertinoPageRoute(
+                        builder: (ctx) => StudentDetailScreen(
+                          id: _eventList[index].eventId ?? '',
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                tileColor: context.theme.kWhite,
-                //contentPadding: EdgeInsets.all(inset.sm),
-                subtitle: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  spacing: inset.xxs,
-                  children: [
-                    CustomText(
-                      txt: _eventList[index].eventPostDate ?? 'N/A',
-                      fontSize: 10,
-                    ),
-                  ],
-                ),
-              );
-            },
+                    );
+                  },
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomText(
+                        txt: _eventList[index].eventName ?? 'N/A',
+                        color: context.theme.indigo,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: CircleAvatar(
+                          radius: 8,
+                          child: CustomText(
+                            txt: _eventList[index]
+                                .registeredStudentCount
+                                .toString(),
+                            fontSize: 8,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  tileColor: context.theme.kWhite,
+                  //contentPadding: EdgeInsets.all(inset.sm),
+                  subtitle: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    spacing: inset.xxs,
+                    children: [
+                      CustomText(
+                        txt: _eventList[index].eventPostDate ?? 'N/A',
+                        fontSize: 10,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           );
         },
       ),

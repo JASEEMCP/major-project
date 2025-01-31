@@ -108,57 +108,61 @@ class _ScreenVerifyStudentState extends State<ScreenVerifyStudent> {
           if (_studentList.isEmpty) {
             return const Center(child: CustomText(txt: 'No data found'));
           }
-          return ListView.separated(
-            itemCount: _studentList.length,
-            padding: EdgeInsets.all(inset.xs),
-            separatorBuilder: (context, index) => const Divider(),
-            itemBuilder: (ctx, index) {
-              return ListTile(
-                tileColor: context.theme.kWhite,
-                title: CustomText(
-                  txt: _studentList[index].registerNo ?? 'N/A',
-                  color: context.theme.indigo,
-                ),
-                trailing: ValueListenableBuilder(
-                  valueListenable: _isVerifying,
-                  builder: (context, isVerifying, _) {
-                    return TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.green,
+          return RefreshIndicator(
+            onRefresh: ()async => await _refresh(),
+            child: ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: _studentList.length,
+              padding: EdgeInsets.all(inset.xs),
+              separatorBuilder: (context, index) => const Divider(),
+              itemBuilder: (ctx, index) {
+                return ListTile(
+                  tileColor: context.theme.kWhite,
+                  title: CustomText(
+                    txt: _studentList[index].registerNo ?? 'N/A',
+                    color: context.theme.indigo,
+                  ),
+                  trailing: ValueListenableBuilder(
+                    valueListenable: _isVerifying,
+                    builder: (context, isVerifying, _) {
+                      return TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        ),
+                        onPressed: isVerifying && currentIndex == index
+                            ? null
+                            : () {
+                                currentIndex = index;
+                                _verify(
+                                    context, _studentList[index].studentId ?? '');
+                              },
+                        child: const CustomText(
+                          txt: 'Verify',
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  contentPadding: EdgeInsets.all(inset.sm),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: inset.xxs,
+                    children: [
+                      CustomText(
+                        txt: _studentList[index].name ?? 'N/A',
                       ),
-                      onPressed: isVerifying && currentIndex == index
-                          ? null
-                          : () {
-                              currentIndex = index;
-                              _verify(
-                                  context, _studentList[index].studentId ?? '');
-                            },
-                      child: const CustomText(
-                        txt: 'Verify',
-                        color: Colors.white,
+                      CustomText(
+                        txt: _studentList[index].department ?? 'N/A',
+                        fontSize: 12,
                       ),
-                    );
-                  },
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                contentPadding: EdgeInsets.all(inset.sm),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: inset.xxs,
-                  children: [
-                    CustomText(
-                      txt: _studentList[index].name ?? 'N/A',
-                    ),
-                    CustomText(
-                      txt: _studentList[index].department ?? 'N/A',
-                      fontSize: 12,
-                    ),
-                  ],
-                ),
-              );
-            },
+                    ],
+                  ),
+                );
+              },
+            ),
           );
         },
       ),

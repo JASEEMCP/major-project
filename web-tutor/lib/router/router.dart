@@ -13,6 +13,8 @@ class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
+  static GlobalKey<NavigatorState> get rootKey => _rootNavigatorKey;
+
   static GoRouter get router => _router;
 
   static final GoRouter _router = GoRouter(

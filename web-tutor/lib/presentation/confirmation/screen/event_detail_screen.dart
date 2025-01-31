@@ -1,12 +1,10 @@
 import 'package:app/domain/explorer/event_detail_model/event_detail_model.dart';
 import 'package:app/infrastructure/env/env.dart';
-import 'package:app/main.dart';
 import 'package:app/presentation/widget/custom_circle_btn.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class StudentDetailScreen extends StatefulWidget {
   final String id;
@@ -36,6 +34,47 @@ class _StudentDetailScreenState extends State<StudentDetailScreen> {
       }
     } on DioException catch (_) {
       _isLoading.value = false;
+    }
+  }
+
+  _refresh() async {
+    try {
+      final res = await dioClient.dio.get(
+          "${Env().apiBaseUrl}home/tutor/unconfirmed-event/detail/${widget.id}/");
+      if (res.statusCode == 200) {
+        _model = EventDetailModel.fromJson(res.data);
+        _isLoading.value = true;
+        _isLoading.value = false;
+      } else {
+        _isLoading.value = true;
+        _isLoading.value = false;
+      }
+    } on DioException catch (_) {
+      _isLoading.value = true;
+      _isLoading.value = false;
+    }
+  }
+
+  _confirmDutyLeave(BuildContext ctx, String id) async {
+    try {
+      final res = await dioClient.dio.put(
+        "${Env().apiBaseUrl}home/tutor/confirmed-duty-leave/",
+        data: {
+          'registration_id': id,
+        },
+      );
+      if (res.statusCode == 200) {
+        await _refresh();
+        if (ctx.mounted) {
+          ctx.pop();
+
+          ctx.showCustomSnackBar('Duty Leave approved', Colors.green);
+        }
+      } else {}
+    } on DioException catch (_) {
+      if (ctx.mounted) {
+        ctx.showCustomSnackBar('Failed to approve', Colors.red);
+      }
     }
   }
 
@@ -108,7 +147,7 @@ class _StudentDetailScreenState extends State<StudentDetailScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _model?.students?.length ?? 0,
-                    separatorBuilder: (context, index) =>  Gap(inset.xs),
+                    separatorBuilder: (context, index) => Gap(inset.xs),
                     itemBuilder: (ctx, index) {
                       return ListTile(
                         tileColor: context.theme.kWhite,
@@ -125,6 +164,12 @@ class _StudentDetailScreenState extends State<StudentDetailScreen> {
                               context,
                               title: 'Approve Duty Leave',
                               content: 'Confirm Duty Leave',
+                              onTap: () {
+                                _confirmDutyLeave(
+                                    context,
+                                    _model?.students?[index].registrationId ??
+                                        '');
+                              },
                             );
                           },
                           child: const CustomText(
