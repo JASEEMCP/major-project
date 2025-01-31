@@ -16,7 +16,7 @@ class AppRouter {
 
   static GoRouter get router => _router;
 
-  static GlobalKey<NavigatorState> get rootKey => _rootNavigatorKey;
+  static GlobalKey<NavigatorState> get rootKey  => _rootNavigatorKey;
 
   static final GoRouter _router = GoRouter(
     initialLocation: ScreenPath.splash,

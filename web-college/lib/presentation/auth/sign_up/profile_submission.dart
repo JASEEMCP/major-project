@@ -70,10 +70,10 @@ class _ProfileSubmissionState extends State<ProfileSubmission> {
       if (response.statusCode == 201) {
         pref.token.value = pref.token.value.copyWith(
           isProfileCreated: true,
-          
+          isVerified: false,
         );
-        tokenCubit.updateToken(pref.token.value);
-        appRouter.go(ScreenPath.explore);
+        //tokenCubit.updateToken(pref.token.value);
+        appRouter.go(ScreenPath.login);
         _submitting.value = false;
       } else {
         _submitting.value = false;
