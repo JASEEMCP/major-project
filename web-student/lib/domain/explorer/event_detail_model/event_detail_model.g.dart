@@ -17,7 +17,7 @@ EventDetailModel _$EventDetailModelFromJson(Map<String, dynamic> json) =>
       authority: json['authority'] as String?,
       credit: (json['credit'] as num?)?.toInt(),
       category: json['category'] as String?,
-      sessions:  (json['sessions'] as List<dynamic>?)
+      sessions: (json['sessions'] as List<dynamic>?)
           ?.map((e) => Session.fromJson(e as Map<String, dynamic>))
           .toList(),
       isRegistered: json['is_registered'] as bool?,

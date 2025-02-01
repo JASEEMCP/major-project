@@ -13,6 +13,7 @@ Session _$SessionFromJson(Map<String, dynamic> json) => Session(
       venue: json['venue'] as String?,
       facultyName: json['faculty_name'] as String?,
       isCurrentSession: json['is_current_session'] as bool?,
+      index: (json['index'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
       'venue': instance.venue,
       'faculty_name': instance.facultyName,
       'is_current_session': instance.isCurrentSession,
+      'index': instance.index,
     };

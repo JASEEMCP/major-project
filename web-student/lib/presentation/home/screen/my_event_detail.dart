@@ -198,7 +198,7 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
                                 "Faculty Name : ${_model?.sessions?[index].facultyName}",
                             fontSize: 12,
                           ),
-                          if ((_model?.sessions?[index].isCurrentSession ??
+                          if (!(_model?.sessions?[index].isCurrentSession ??
                               false))
                             CustomCircleBtn(
                               onTap: () {
@@ -223,9 +223,8 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
                                             ),
                                             Gap(inset.sm),
                                             QrImageView(
-                                              data: _model?.sessions?[index]
-                                                      .eventSessionId ??
-                                                  "N/A",
+                                              data:
+                                                  "${_model?.sessions?[index].eventSessionId}.${_model?.registrationId}. ${_model?.sessions?[index].time}.${pref.token.value.name}.$index.${widget.id}",
                                               version: QrVersions.auto,
                                               size: 200.0,
                                             ),
