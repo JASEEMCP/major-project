@@ -57,6 +57,7 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
 
   _refresh() async {
     try {
+      await Future.delayed(const Duration(seconds: 2));
       final res = await dioClient.dio.get(
           "${Env().apiBaseUrl}home/student/recent-event-detail/${widget.id}/");
       if (res.statusCode == 200) {
@@ -73,28 +74,28 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
     }
   }
 
-  _confirmDutyLeave(BuildContext ctx, String id) async {
-    try {
-      final res = await dioClient.dio.put(
-        "${Env().apiBaseUrl}home/tutor/confirmed-duty-leave/",
-        data: {
-          'registration_id': id,
-        },
-      );
-      if (res.statusCode == 200) {
-        await _refresh();
-        if (ctx.mounted) {
-          ctx.pop();
+  // _confirmDutyLeave(BuildContext ctx, String id) async {
+  //   try {
+  //     final res = await dioClient.dio.put(
+  //       "${Env().apiBaseUrl}home/tutor/confirmed-duty-leave/",
+  //       data: {
+  //         'registration_id': id,
+  //       },
+  //     );
+  //     if (res.statusCode == 200) {
+  //       await _refresh();
+  //       if (ctx.mounted) {
+  //         ctx.pop();
 
-          ctx.showCustomSnackBar('Duty Leave approved', Colors.green);
-        }
-      } else {}
-    } on DioException catch (_) {
-      if (ctx.mounted) {
-        ctx.showCustomSnackBar('Failed to approve', Colors.red);
-      }
-    }
-  }
+  //         ctx.showCustomSnackBar('Duty Leave approved', Colors.green);
+  //       }
+  //     } else {}
+  //   } on DioException catch (_) {
+  //     if (ctx.mounted) {
+  //       ctx.showCustomSnackBar('Failed to approve', Colors.red);
+  //     }
+  //   }
+  // }
 
   @override
   void initState() {
@@ -216,7 +217,7 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
                                               .min, // Ensures it takes only necessary height
                                           children: [
                                             const CustomText(
-                                              txt: "Session QR",
+                                              txt: "QR Code",
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -240,6 +241,7 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
                                               color: Colors.green,
                                               onTap: () {
                                                 context.pop();
+                                                _refresh();
                                               },
                                             )
                                           ],
@@ -261,22 +263,28 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
           );
         },
       ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(inset.sm),
-        child: CustomButton(
-          onTap: () {
-            customAlertBox(
-              context,
-              title: 'Register Event',
-              onTap: () {
-                CertificateGenerator.generateCertificate(
-                    "John Doe", "Flutter Workshop");
-              },
+      bottomNavigationBar: ValueListenableBuilder(
+          valueListenable: _isLoading,
+          builder: (context, value, _) {
+            if (value || _model == null) {
+              return const SizedBox.shrink();
+            }
+            if (_model?.isRegistered ?? false) {
+              return const SizedBox.shrink();
+            }
+            return Padding(
+              padding: EdgeInsets.all(inset.sm),
+              child: CustomButton(
+                onTap: () {
+                  CertificateGenerator.generateCertificate(
+                    pref.token.value.name ?? '',
+                    _model?.eventName ?? 'N/A',
+                  );
+                },
+                name: 'Register Now',
+              ),
             );
-          },
-          name: 'Register Now',
-        ),
-      ),
+          }),
     );
   }
 }
