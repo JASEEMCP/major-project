@@ -269,7 +269,7 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
           if (value || _model == null) {
             return const SizedBox.shrink();
           }
-          if (_model?.isRegistered ?? false) {
+          if (!(_model?.isRegistered ?? false)) {
             return const SizedBox.shrink();
           }
           return Padding(
