@@ -25,8 +25,11 @@ class EventDetailModel {
   bool? isRegistered;
   @JsonKey(name: 'registration_id')
   String? registrationId;
+  @JsonKey(name: 'is_attendance')
+  bool? isAttended;
 
   EventDetailModel({
+    this.isAttended,
     this.eventId,
     this.eventName,
     this.description,

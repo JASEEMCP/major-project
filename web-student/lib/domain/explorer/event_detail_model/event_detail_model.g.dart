@@ -8,6 +8,7 @@ part of 'event_detail_model.dart';
 
 EventDetailModel _$EventDetailModelFromJson(Map<String, dynamic> json) =>
     EventDetailModel(
+      isAttended: json['is_attendance'] as bool?,
       eventId: json['event_id'] as String?,
       eventName: json['event_name'] as String?,
       description: json['description'] as String?,
@@ -38,4 +39,5 @@ Map<String, dynamic> _$EventDetailModelToJson(EventDetailModel instance) =>
       'sessions': instance.sessions,
       'is_registered': instance.isRegistered,
       'registration_id': instance.registrationId,
+      'is_attendance': instance.isAttended,
     };

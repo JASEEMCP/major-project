@@ -271,6 +271,9 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
           if (!(_model?.isRegistered ?? false)) {
             return const SizedBox.shrink();
           }
+          if(!(_model?.isAttended??false)){
+            return const SizedBox.shrink();
+          }
           return Padding(
             padding: EdgeInsets.all(inset.sm),
             child: CustomButton(
