@@ -58,10 +58,13 @@ class _QrScanScreenState extends State<QrScanScreen> {
         }
       }
     } on DioException catch (_) {
+       _isMarking.value = false;
+      AppRouter.rootKey.currentState?.pushReplacement(
+        MaterialPageRoute(builder: (ctx) => const MobileLayout()),
+      );
       if (mounted) {
         context.showCustomSnackBar('Marking failed', Colors.red);
       }
-      _isMarking.value = false;
     }
   }
 
@@ -97,13 +100,18 @@ class _QrScanScreenState extends State<QrScanScreen> {
                   'Session', "Session ${(stringToInt(dataList[4])! + 1)}"),
               rowTitleText('Time', dataList[2]),
               const SizedBox(height: 10),
-              CustomButton(
-                width: double.maxFinite,
-                name: "Mark Participation",
-                color: Colors.green,
-                onTap: () {
-                  _markAttendence(dataList[1], dataList[0]);
-                },
+              ValueListenableBuilder(
+                valueListenable: _isMarking,
+                builder: (context,isLoading,_) {
+                  return CustomButton(
+                    width: double.maxFinite,
+                    name: "Mark Participation",
+                    color: Colors.green,
+                    onTap: isLoading?null: () {
+                      _markAttendence(dataList[1], dataList[0]);
+                    },
+                  );
+                }
               ),
               Gap(inset.sm),
               CustomButton(
