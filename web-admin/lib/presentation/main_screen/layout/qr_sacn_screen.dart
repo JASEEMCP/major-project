@@ -37,12 +37,17 @@ class _QrScanScreenState extends State<QrScanScreen> {
 
   final ValueNotifier<bool> _isMarking = ValueNotifier(false);
 
-  _markAttendence() async {
+  _markAttendence(String id1, String id2) async {
     try {
       _isMarking.value = true;
 
-      final response = await dioClient.dio
-          .get('${Env().apiBaseUrl}home/admin/my-events-list/');
+      final response = await dioClient.dio.post(
+        '${Env().apiBaseUrl}home/mark/attendance/',
+        data: {
+          'registration_id': id1,
+          'event_session': id2,
+        },
+      );
       if (response.statusCode == 200) {
         _isMarking.value = false;
         AppRouter.rootKey.currentState?.pushReplacement(
@@ -53,9 +58,9 @@ class _QrScanScreenState extends State<QrScanScreen> {
         }
       }
     } on DioException catch (_) {
-       if (mounted) {
-          context.showCustomSnackBar('Marking failed', Colors.red);
-        }
+      if (mounted) {
+        context.showCustomSnackBar('Marking failed', Colors.red);
+      }
       _isMarking.value = false;
     }
   }
@@ -97,7 +102,7 @@ class _QrScanScreenState extends State<QrScanScreen> {
                 name: "Mark Participation",
                 color: Colors.green,
                 onTap: () {
-                  _markAttendence();
+                  _markAttendence(dataList[1], dataList[0]);
                 },
               ),
               Gap(inset.sm),

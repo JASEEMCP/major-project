@@ -6,8 +6,10 @@ import 'package:app/presentation/widget/custom_circle_btn.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/extensions.dart';
 import 'package:app/router/router.dart';
+import 'package:app/router/router_path.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 final ValueNotifier<bool> _isLoading = ValueNotifier(false);
 List<MyEventList> _myEventsList = [];
@@ -55,6 +57,18 @@ class _MobileLayoutState extends State<MobileLayout> {
           txt: 'Mark Attendance',
           fontSize: 20,
         ),
+         actions: [
+          TextButton(
+            onPressed: () {
+              tokenCubit.logoutUser();
+              context.go(ScreenPath.login);
+            },
+            child: const CustomText(
+              txt: 'LOGOUT',
+            ),
+          ),
+        ],
+      
       ),
       body: ValueListenableBuilder(
           valueListenable: _isLoading,
