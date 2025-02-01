@@ -27,7 +27,7 @@ class DioClient {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          print(tokenCubit.state);
+          
           _dio.options.headers = tokenCubit.state.toAuthorizationHeader();
 
           /// Check if tokens are valid before making the request

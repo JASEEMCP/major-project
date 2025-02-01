@@ -1,4 +1,5 @@
 import 'package:app/presentation/main_screen/layout/desktop_layout.dart';
+import 'package:app/presentation/main_screen/layout/mobile_layout.dart';
 import 'package:flutter/widgets.dart';
 import 'package:app/styles/responsive_layout.dart';
 
@@ -17,9 +18,7 @@ class _ScreenMainState extends State<ScreenMain> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      mobile: DesktopLayout(
-        child: widget.child,
-      ),
+      mobile: const MobileLayout(),
       tablet: DesktopLayout(
         child: widget.child,
       ),

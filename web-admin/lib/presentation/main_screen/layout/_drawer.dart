@@ -109,6 +109,7 @@ class CustomDrawer extends StatelessWidget {
                     tileName: 'Logout',
                     icon: Icons.exit_to_app,
                     onTap: () {
+                      tokenCubit.logoutUser();
                       context.go(ScreenPath.login);
                     },
                   ),

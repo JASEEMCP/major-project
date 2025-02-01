@@ -26,6 +26,7 @@ dependencies:
   intl: ^0.20.0
   json_annotation: ^4.9.0
   jwt_decoder: ^2.0.1
+  qr_code_scanner_plus: ^2.0.9+1
   url_launcher: ^6.3.1
 
 dev_dependencies:
