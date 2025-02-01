@@ -264,27 +264,28 @@ class _MyEventDetailScreenState extends State<MyEventDetailScreen> {
         },
       ),
       bottomNavigationBar: ValueListenableBuilder(
-          valueListenable: _isLoading,
-          builder: (context, value, _) {
-            if (value || _model == null) {
-              return const SizedBox.shrink();
-            }
-            if (_model?.isRegistered ?? false) {
-              return const SizedBox.shrink();
-            }
-            return Padding(
-              padding: EdgeInsets.all(inset.sm),
-              child: CustomButton(
-                onTap: () {
-                  CertificateGenerator.generateCertificate(
-                    pref.token.value.name ?? '',
-                    _model?.eventName ?? 'N/A',
-                  );
-                },
-                name: 'Register Now',
-              ),
-            );
-          }),
+        valueListenable: _isLoading,
+        builder: (context, value, _) {
+          if (value || _model == null) {
+            return const SizedBox.shrink();
+          }
+          if (_model?.isRegistered ?? false) {
+            return const SizedBox.shrink();
+          }
+          return Padding(
+            padding: EdgeInsets.all(inset.sm),
+            child: CustomButton(
+              onTap: () {
+                CertificateGenerator.generateCertificate(
+                  pref.token.value.name ?? '',
+                  _model?.eventName ?? 'N/A',
+                );
+              },
+              name: 'Download Certificate',
+            ),
+          );
+        },
+      ),
     );
   }
 }
