@@ -5,6 +5,7 @@ import 'package:app/presentation/event/host_event_view.dart';
 import 'package:app/presentation/event/view/create_event_view.dart';
 import 'package:app/presentation/event/view/event_detail_view.dart';
 import 'package:app/presentation/explore/screen/college_detail.dart';
+import 'package:app/presentation/main_screen/layout/mobile_layout.dart';
 import 'package:app/presentation/profile/profile_view.dart';
 import 'package:app/router/auth_shell.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ class AppRouter {
   static final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
   static GoRouter get router => _router;
+
+
+  static GlobalKey<NavigatorState> get rootKey =>_rootNavigatorKey;
 
   static final GoRouter _router = GoRouter(
     initialLocation: ScreenPath.splash,
@@ -49,6 +53,16 @@ class AppRouter {
           );
         },
         routes: [
+          GoRoute(
+            path: '/mark',
+            parentNavigatorKey: _shellNavigatorKey,
+            pageBuilder: (context, state) {
+              return const CustomTransitionPage(
+                child: MobileLayout(),
+                transitionsBuilder: useNavChangeTransition,
+              );
+            },
+          ),
           /// Home
           GoRoute(
             path: ScreenPath.explore,

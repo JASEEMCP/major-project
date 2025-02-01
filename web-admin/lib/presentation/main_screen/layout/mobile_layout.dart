@@ -1,9 +1,11 @@
 import 'package:app/domain/explorer/my_event_list/my_event_list.dart';
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/main.dart';
+import 'package:app/presentation/main_screen/layout/qr_sacn_screen.dart';
 import 'package:app/presentation/widget/custom_circle_btn.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/extensions.dart';
+import 'package:app/router/router.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +50,7 @@ class _MobileLayoutState extends State<MobileLayout> {
     return Scaffold(
       backgroundColor: context.theme.kWhite,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const CustomText(
           txt: 'Mark Attendance',
           fontSize: 20,
@@ -62,58 +65,69 @@ class _MobileLayoutState extends State<MobileLayout> {
             if (_myEventsList.isEmpty) {
               return const Center(child: CustomText(txt: 'No data found'));
             }
-            return ListView.separated(
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: _myEventsList.length,
-              padding: EdgeInsets.all(inset.xs),
-              separatorBuilder: (context, index) => const Divider(),
-              itemBuilder: (ctx, index) {
-                return ListTile(
-                  onTap: () {},
-                  tileColor: context.theme.kWhite,
-                  title: Row(
-                    children: [
-                      Expanded(
-                        child: CustomText(
-                          txt: _myEventsList[index].eventName ?? 'N/A',
-                          color: context.theme.indigo,
-                          fontSize: 18,
+            return RefreshIndicator(
+              onRefresh: () async => _fetchMyEventList(),
+              child: ListView.separated(
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: _myEventsList.length,
+                padding: EdgeInsets.all(inset.xs),
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (ctx, index) {
+                  return ListTile(
+                    //onTap: () {},
+                    tileColor: context.theme.kWhite,
+                    title: Row(
+                      children: [
+                        Expanded(
+                          child: CustomText(
+                            txt: _myEventsList[index].eventName ?? 'N/A',
+                            color: context.theme.indigo,
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                      // CustomText(
-                      //   txt: _myEventsList[index].eventDate ?? 'N/A',
-                      //   color: context.theme.indigo,
-                      // ),
-                    ],
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  contentPadding: EdgeInsets.all(inset.sm),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: inset.xxs,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: rowTitleText('Category',
-                                _myEventsList[index].category ?? 'N/A'),
-                          ),
-                          CustomCircleBtn(
-                            onTap: () {},
-                            icon: Icons.qr_code_scanner,
-                          ),
-                        ],
-                      ),
-                      rowTitleText(
-                        'Date',
-                        _myEventsList[index].eventDate ?? 'N/A',
-                      ),
-                    ],
-                  ),
-                );
-              },
+                        // CustomText(
+                        //   txt: _myEventsList[index].eventDate ?? 'N/A',
+                        //   color: context.theme.indigo,
+                        // ),
+                      ],
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    contentPadding: EdgeInsets.all(inset.sm),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: inset.xxs,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: rowTitleText('Category',
+                                  _myEventsList[index].category ?? 'N/A'),
+                            ),
+                            CustomCircleBtn(
+                              onTap: () {
+                                AppRouter.rootKey.currentState?.push(
+                                  MaterialPageRoute(
+                                    builder: (ctx) => QrScanScreen(
+                                      id: _myEventsList[index].eventId ?? '',
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: Icons.qr_code_scanner,
+                            ),
+                          ],
+                        ),
+                        rowTitleText(
+                          'Date',
+                          _myEventsList[index].eventDate ?? 'N/A',
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             );
           }),
     );

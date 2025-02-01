@@ -19,6 +19,7 @@ class AppLogic {
       ///Flagging bootstrap
       isBootStrapComplete = true;
       if (pref.token.value.isProfileCreated ?? false) {
+        
         appRouter.go(ScreenPath.explore);
       } else {
         appRouter.go(ScreenPath.login);

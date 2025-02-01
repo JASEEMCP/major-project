@@ -15,10 +15,13 @@ class ScreenMain extends StatefulWidget {
 }
 
 class _ScreenMainState extends State<ScreenMain> {
+
+  
   @override
   Widget build(BuildContext context) {
+    
     return ResponsiveLayout(
-      mobile: const MobileLayout(),
+      mobile: const  MobileLayout(),
       tablet: DesktopLayout(
         child: widget.child,
       ),
