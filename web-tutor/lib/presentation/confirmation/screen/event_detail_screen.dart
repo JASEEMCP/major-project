@@ -1,5 +1,6 @@
 import 'package:app/domain/explorer/event_detail_model/event_detail_model.dart';
 import 'package:app/infrastructure/env/env.dart';
+import 'package:app/presentation/widget/certificate_genarte.dart';
 import 'package:app/presentation/widget/custom_circle_btn.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
 import 'package:app/resource/utils/common_lib.dart';
@@ -191,7 +192,12 @@ class _StudentDetailScreenState extends State<StudentDetailScreen> {
                               fontSize: 12,
                             ),
                             CustomCircleBtn(
-                              onTap: () {},
+                              onTap: () {
+                                CertificateGenerator.generateCertificate(
+                                  pref.token.value.name ?? '',
+                                  _model?.eventName ?? 'N/A',
+                                );
+                              },
                               icon: Icons.print_outlined,
                             )
                           ],

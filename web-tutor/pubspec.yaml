@@ -26,6 +26,9 @@ dependencies:
   intl: ^0.20.0
   json_annotation: ^4.9.0
   jwt_decoder: ^2.0.1
+  open_file_plus: ^3.4.1+1
+  path_provider: ^2.1.5
+  pdf: ^3.11.2
   url_launcher: ^6.3.1
 
 dev_dependencies:
