@@ -2,6 +2,7 @@ import 'package:app/domain/explorer/recent_event_list_model/recent_event_list_mo
 import 'package:app/infrastructure/env/env.dart';
 import 'package:app/main.dart';
 import 'package:app/presentation/widget/helper_widget.dart';
+import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
       _isLoading.value = true;
 
       final res = await dioClient.dio
-          .get("${Env().apiBaseUrl}home/student/recent-event/list/");
+          .get("${Env().apiBaseUrl}home/student/event/list/?event_type=recent");
       if (res.statusCode == 200) {
         _studentList = (res.data as List)
             .map((e) => RecentEventListModel.fromJson(e))
@@ -117,6 +118,10 @@ class _HomeViewState extends State<HomeView> {
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (ctx, index) {
                 return ListTile(
+                  onTap: () {
+                    context.go(
+                        ScreenPath.detail(_studentList[index].eventId ?? 'df'));
+                  },
                   tileColor: context.theme.kWhite,
                   title: Row(
                     children: [

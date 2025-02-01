@@ -1,6 +1,8 @@
 import 'package:app/presentation/home/home_view.dart';
 import 'package:app/presentation/home/my_event_view.dart';
 import 'package:app/presentation/home/profile_view.dart';
+import 'package:app/presentation/home/screen/event_detail_screen.dart';
+import 'package:app/presentation/home/screen/my_event_detail.dart';
 import 'package:app/router/auth_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -54,6 +56,18 @@ class AppRouter {
                 transitionsBuilder: useNavChangeTransition,
               );
             },
+            routes: [
+              GoRoute(
+                path: 'detail/:id',
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) {
+                  return  CustomTransitionPage(
+                    child: EventDetailScreen(id: state.pathParameters['id'].toString()),
+                    transitionsBuilder: useNavChangeTransition,
+                  );
+                },
+              ),
+            ],
           ),
 
           GoRoute(
@@ -65,6 +79,18 @@ class AppRouter {
                 transitionsBuilder: useNavChangeTransition,
               );
             },
+            routes: [
+              GoRoute(
+                path: 'detail/:id',
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) {
+                  return  CustomTransitionPage(
+                    child: MyEventDetailScreen(id: state.pathParameters['id'].toString()),
+                    transitionsBuilder: useNavChangeTransition,
+                  );
+                },
+              ),
+            ],
           ),
 
           GoRoute(
