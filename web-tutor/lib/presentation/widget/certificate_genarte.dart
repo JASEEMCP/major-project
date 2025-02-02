@@ -1,4 +1,4 @@
-import 'dart:html' as html; // For Web
+//import 'dart:html' as html; // For Web
 import 'package:flutter/foundation.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'package:pdf/pdf.dart';
@@ -51,10 +51,10 @@ class CertificateGenerator {
 
     if (kIsWeb) {
       // ✅ Open in a new browser tab (Flutter Web)
-      final blob = html.Blob([pdfBytes], 'application/pdf');
-      final url = html.Url.createObjectUrlFromBlob(blob);
-      html.window.open(url, "_blank");
-      html.Url.revokeObjectUrl(url);
+      // final blob = html.Blob([pdfBytes], 'application/pdf');
+      // final url = html.Url.createObjectUrlFromBlob(blob);
+      // html.window.open(url, "_blank");
+      // html.Url.revokeObjectUrl(url);
     } else {
       // ✅ Save & Open PDF (Mobile)
       final dir = await getApplicationDocumentsDirectory();
