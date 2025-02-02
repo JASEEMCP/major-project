@@ -1,5 +1,8 @@
 import 'package:app/application/auth/token_cubit/token_cubit.dart';
+import 'package:app/firebase_options.dart';
 import 'package:app/resource/api/dio_client.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:app/domain/app_logic.dart';
 import 'package:app/presentation/root_app.dart';
@@ -14,6 +17,17 @@ Future<void> main() async {
   //Configuring injection
   await configureInjection();
 
+   await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  String? token = await messaging.getToken();
+  print("FCM Token: $token");
+
   runApp(const RootApp());
 
   // Starting bootstrap
@@ -26,3 +40,9 @@ PrefInfo get pref => getIt<PrefInfo>();
 AppLogic get appLogic => getIt<AppLogic>();
 TokenCubit get tokenCubit => getIt<TokenCubit>();
 DioClient get dioClient => getIt<DioClient>();
+
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  
+  print("Background message received: ${message.notification?.title}");
+}

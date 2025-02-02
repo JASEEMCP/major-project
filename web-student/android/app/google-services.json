@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "904700957731",
+    "project_id": "fastag-a406a",
+    "storage_bucket": "fastag-a406a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904700957731:android:e1371464d9313a96974d96",
+        "android_client_info": {
+          "package_name": "com.college.studentapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQi5869hri8fvdioFa3ylE0pLJXTxfJ9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
