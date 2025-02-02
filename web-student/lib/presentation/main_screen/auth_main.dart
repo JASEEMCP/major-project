@@ -1,3 +1,5 @@
+import 'package:app/presentation/home/screen/event_detail_screen.dart';
+import 'package:app/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -47,6 +49,11 @@ class _AuthMainScreenState extends State<AuthMainScreen> {
         message.notification?.title ?? "No Title",
         message.notification?.body ?? "No Body",
       );
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print(message.data);
+      AppRouter.rootkey.currentState?.push(MaterialPageRoute(builder: (ctx)=>EventDetailScreen(id: message.data['event_id'])));
     });
   }
 

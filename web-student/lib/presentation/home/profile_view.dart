@@ -44,7 +44,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.indigoLight,
+      backgroundColor: const Color.fromARGB(255, 231, 241, 249),
       appBar: AppBar(
         centerTitle: false,
         title: const CustomText(

@@ -7,6 +7,7 @@ import 'package:app/resource/api/end_points.dart';
 import 'package:app/resource/utils/common_lib.dart';
 import 'package:app/resource/utils/extensions.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 // ignore: must_be_immutable
 class ScreenLogin extends StatelessWidget {
@@ -22,22 +23,24 @@ class ScreenLogin extends StatelessWidget {
     apiState = LoadingState();
 
     try {
+      final token = await FirebaseMessaging.instance.getToken();
       final response = await Dio().post(
         "${Env().apiBaseUrl}${EndPoints.login}",
         data: {
           'email': _textController[0].text.trim(),
           'password': _textController[1].text.trim(),
+          'fcm_token': token,
         },
       );
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
-        if (!(pref.token.value.isVerified ?? false)) {
-          if (context.mounted) {
-            return context.showCustomSnackBar(
-                'Student is Not verified', Colors.red);
-          }
-        }
+        // if (!(pref.token.value.isVerified ?? false)) {
+        //   if (context.mounted) {
+        //     return context.showCustomSnackBar(
+        //         'Student is Not verified', Colors.red);
+        //   }
+        // }
         tokenCubit.updateToken(pref.token.value);
         if (pref.token.value.isProfileCreated ?? false) {
           appRouter.go(ScreenPath.explore);
