@@ -16,7 +16,7 @@ Future<void> main() async {
 
   //Configuring injection
   await configureInjection();
-
+try{
    await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
@@ -27,7 +27,10 @@ Future<void> main() async {
 
   String? token = await messaging.getToken();
   print("FCM Token: $token");
-
+}
+catch(e){
+  print("Firebase Error: $e");
+}
   runApp(const RootApp());
 
   // Starting bootstrap

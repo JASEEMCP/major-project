@@ -3,7 +3,7 @@ import 'package:app/infrastructure/env/env_keys.dart';
 import 'package:app/infrastructure/env/prod_env.dart';
 
 abstract interface class Env implements EnvKeys {
-  static const kDebugMode = false;
+  static const kDebugMode = true;
 
   factory Env() => _instance;
 

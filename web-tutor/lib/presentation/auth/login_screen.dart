@@ -29,6 +29,7 @@ class ScreenLogin extends StatelessWidget {
           'password': _textController[1].text.trim(),
         },
       );
+      
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
@@ -38,6 +39,7 @@ class ScreenLogin extends StatelessWidget {
         apiState = ErrorState();
       }
     } catch (e) {
+      
       if (context.mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(showSnackBar('Invalid Username or Password'));

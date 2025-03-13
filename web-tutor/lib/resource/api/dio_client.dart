@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -44,6 +45,7 @@ class DioClient {
           handler.next(options); // Continue with the request
         },
         onError: (e, handler) async {
+          print(e.response?.data.toString());
           if (e.type == DioExceptionType.connectionError) {
             return handler.reject(e);
           }

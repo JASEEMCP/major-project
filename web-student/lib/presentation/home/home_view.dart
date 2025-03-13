@@ -96,7 +96,7 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         centerTitle: false,
         title: const CustomText(
-          txt: 'Verify Student',
+          txt: 'Home',
           fontSize: 20,
         ),
       ),
