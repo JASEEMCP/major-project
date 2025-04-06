@@ -49,6 +49,7 @@ class _ForgotPwdViewState extends State<CreateSignUp> {
           _isLoading.value = false;
         }
       } on DioException catch (e) {
+        print(e.response?.data);
         if (ctx.mounted) {
           ctx.showCustomSnackBar(
               e.response?.data['message'] ?? 'An error occurred');

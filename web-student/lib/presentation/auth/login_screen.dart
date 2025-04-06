@@ -33,15 +33,16 @@ class ScreenLogin extends StatelessWidget {
           'fcm_token': token,
         },
       );
+
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
-        if (!(pref.token.value.isVerified ?? false)) {
-          if (context.mounted) {
-            return context.showCustomSnackBar(
-                'Student is Not verified', Colors.red);
-          }
-        }
+        // if (!(pref.token.value.isVerified ?? false)) {
+        //   if (context.mounted) {
+        //     return context.showCustomSnackBar(
+        //         'Student is Not verified', Colors.red);
+        //   }
+        // }
         tokenCubit.updateToken(pref.token.value);
         if (pref.token.value.isProfileCreated ?? false) {
           appRouter.go(ScreenPath.explore);
@@ -51,9 +52,14 @@ class ScreenLogin extends StatelessWidget {
       } else {
         apiState = ErrorState();
       }
-    } catch (e) {
-      print(e);
+    } on DioException catch (e) {
+      // print(e.response?.statusCode);
+
       if (context.mounted) {
+        if (e.response?.statusCode == 400) {
+          return context.showCustomSnackBar(
+              e.response?.data['message'] ?? 'An error occurred', Colors.red);
+        }
         ScaffoldMessenger.of(context)
             .showSnackBar(showSnackBar('Invalid Username or Password'));
       }
