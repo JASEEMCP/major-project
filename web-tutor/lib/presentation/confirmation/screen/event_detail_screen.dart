@@ -150,6 +150,7 @@ class _StudentDetailScreenState extends State<StudentDetailScreen> {
                     itemCount: _model?.students?.length ?? 0,
                     separatorBuilder: (context, index) => Gap(inset.xs),
                     itemBuilder: (ctx, index) {
+                      print(_model?.students?.length);
                       return ListTile(
                         tileColor: context.theme.kWhite,
                         title: CustomText(
@@ -194,7 +195,7 @@ class _StudentDetailScreenState extends State<StudentDetailScreen> {
                             CustomCircleBtn(
                               onTap: () {
                                 CertificateGenerator.generateCertificate(
-                                  pref.token.value.name ?? '',
+                                  _model?.students?[index].name ?? '',
                                   _model?.eventName ?? 'N/A',
                                 );
                               },
