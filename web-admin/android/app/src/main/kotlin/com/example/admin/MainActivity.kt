@@ -1,4 +1,4 @@
-package com.example.structure
+package com.example.admin
 
 import io.flutter.embedding.android.FlutterActivity
 
