@@ -64,12 +64,6 @@ class _HostEventViewState extends State<HostEventView> {
     return ValueListenableBuilder(
         valueListenable: _isLoading,
         builder: (context, isLoading, _) {
-          if (isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (_myEventsList.isEmpty) {
-            return const Center(child: CustomText(txt: 'No data found'));
-          }
           return SingleChildScrollView(
             padding: EdgeInsets.all(inset.sm),
             child: Column(
@@ -91,69 +85,93 @@ class _HostEventViewState extends State<HostEventView> {
                     )
                   ],
                 ),
-                Gap(inset.sm),
-                Container(
-                  width: double.maxFinite,
-                  color: context.theme.indigoLight,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListView.separated(
-                        itemCount: _myEventsList.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        separatorBuilder: (context, index) => Gap(inset.xs),
-                        itemBuilder: (ctx, index) {
-                          return Container(
-                            padding: EdgeInsets.all(inset.sm),
-                            decoration: applyBorderRadius(context),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ValueListenableBuilder(
+                    valueListenable: _isLoading,
+                    builder: (context, isLoading, _) {
+                      if (isLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (_myEventsList.isEmpty) {
+                        return const Center(
+                            child: CustomText(txt: 'No data found'));
+                      }
+                      return Column(
+                        children: [
+                          Gap(inset.sm),
+                          Container(
+                            width: double.maxFinite,
+                            color: context.theme.indigoLight,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                Column(
-                                  spacing: inset.xs,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomText(
-                                      txt: _myEventsList[index].eventName ??
-                                          'N/A',
-                                      color: context.theme.indigo,
-                                    ),
-                                    rowTitleText(
-                                      'Category',
-                                      _myEventsList[index].category ?? 'N/A',
-                                    )
-                                  ],
-                                ),
-                                rowTitleText(
-                                  'Date',
-                                  _myEventsList[index].eventDate ?? 'N/A',
-                                ),
-                                rowTitleText('Fee',
-                                    "INR ${_myEventsList[index].eventFee ?? 'N/A'}"),
-                                rowTitleText(
-                                  'Credit',
-                                  _myEventsList[index].credit.toString(),
-                                ),
-                                CustomButton(
-                                  width: 80,
-                                  name: 'View',
-                                  radius: 30,
-                                  onTap: () {
-                                    context.go(ScreenPath.detail(
-                                      _myEventsList[index].eventId ?? 'N/A',
-                                    ));
+                                ListView.separated(
+                                  itemCount: _myEventsList.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  separatorBuilder: (context, index) =>
+                                      Gap(inset.xs),
+                                  itemBuilder: (ctx, index) {
+                                    return Container(
+                                      padding: EdgeInsets.all(inset.sm),
+                                      decoration: applyBorderRadius(context),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            spacing: inset.xs,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              CustomText(
+                                                txt: _myEventsList[index]
+                                                        .eventName ??
+                                                    'N/A',
+                                                color: context.theme.indigo,
+                                              ),
+                                              rowTitleText(
+                                                'Category',
+                                                _myEventsList[index].category ??
+                                                    'N/A',
+                                              )
+                                            ],
+                                          ),
+                                          rowTitleText(
+                                            'Date',
+                                            _myEventsList[index].eventDate ??
+                                                'N/A',
+                                          ),
+                                          rowTitleText('Fee',
+                                              "INR ${_myEventsList[index].eventFee ?? 'N/A'}"),
+                                          rowTitleText(
+                                            'Credit',
+                                            _myEventsList[index]
+                                                .credit
+                                                .toString(),
+                                          ),
+                                          CustomButton(
+                                            width: 80,
+                                            name: 'View',
+                                            radius: 30,
+                                            onTap: () {
+                                              context.go(ScreenPath.detail(
+                                                _myEventsList[index].eventId ??
+                                                    'N/A',
+                                              ));
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    );
                                   },
-                                )
+                                ),
                               ],
                             ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                )
+                          )
+                        ],
+                      );
+                    }),
               ],
             ),
           );

@@ -22,6 +22,7 @@ class ScreenLogin extends StatelessWidget {
     apiState = LoadingState();
 
     try {
+      print(Env().apiBaseUrl);
       final response = await Dio().post(
         "${Env().apiBaseUrl}${EndPoints.login}",
         data: {
@@ -29,7 +30,7 @@ class ScreenLogin extends StatelessWidget {
           'password': _textController[1].text.trim(),
         },
       );
-      
+
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
@@ -39,7 +40,7 @@ class ScreenLogin extends StatelessWidget {
         apiState = ErrorState();
       }
     } catch (e) {
-      
+      print(e);
       if (context.mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(showSnackBar('Invalid Username or Password'));
