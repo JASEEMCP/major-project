@@ -23,6 +23,7 @@ class ScreenLogin extends StatelessWidget {
     apiState = LoadingState();
 
     try {
+      print(Env().apiBaseUrl);
       final token = await FirebaseMessaging.instance.getToken();
       final response = await Dio().post(
         "${Env().apiBaseUrl}${EndPoints.login}",
@@ -35,12 +36,12 @@ class ScreenLogin extends StatelessWidget {
       if (response.statusCode == 200) {
         apiState = SuccessState();
         pref.token.value = Token.fromJson(response.data);
-        // if (!(pref.token.value.isVerified ?? false)) {
-        //   if (context.mounted) {
-        //     return context.showCustomSnackBar(
-        //         'Student is Not verified', Colors.red);
-        //   }
-        // }
+        if (!(pref.token.value.isVerified ?? false)) {
+          if (context.mounted) {
+            return context.showCustomSnackBar(
+                'Student is Not verified', Colors.red);
+          }
+        }
         tokenCubit.updateToken(pref.token.value);
         if (pref.token.value.isProfileCreated ?? false) {
           appRouter.go(ScreenPath.explore);
@@ -51,6 +52,7 @@ class ScreenLogin extends StatelessWidget {
         apiState = ErrorState();
       }
     } catch (e) {
+      print(e);
       if (context.mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(showSnackBar('Invalid Username or Password'));
@@ -139,6 +141,7 @@ class ScreenLogin extends StatelessWidget {
                 CustomButton(
                   name: 'Login',
                   onTap: () {
+                    print('Hello');
                     if (_formKey.currentState!.validate()) {
                       _login(context);
                     }
